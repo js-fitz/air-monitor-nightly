@@ -76,18 +76,6 @@
         display: none !important
     }
     
-    
-        .leaflet-pane .leaflet-interactive {
-            transition: fill-opacity .1s ease-in-out;
-            transition: stroke .1s ease-in-out;
-
-        }
-
-        .leaflet-pane .leaflet-interactive:hover {
-            fill-opacity:.8 !important;
-            stroke:white !important;
-        }
-        
     .centroid-link-btn {
         color:white !important;
         font-size:18px;
@@ -172,15 +160,17 @@
         box-sizing: border-box;
     }
 
-    .sidebar-container {
+    #sidebar-container {
         position:fixed;
         display: block;
         height: 100vh;
         width:400px;
         overflow:auto;
+        transition:.2s;
+        z-index: 9999;
     }
 
-    .nav-banner {
+    #nav-banner {
         position:fixed;
         top:0;
         left:0;
@@ -189,15 +179,10 @@
         width:400px;
         background-color:#191919;
         overflow:auto;
-    }
-    
-    .nav-banner p {
-        margin:4px 8px;
-        width:max-content;
-        padding
+        z-index: 10000;
     }
 
-    .sidebar {
+    #sidebar {
         width:400px;
         top: 25px;
         position:fixed;
@@ -208,7 +193,117 @@
         box-sizing: border-box;
         overflow-y: auto;
         padding:30px;
-        box-shadow: inset 0 0 15px rgba(0,0,0,0.4);
+        transition:.15s;
+    }
+    
+    #open-menu-icon {
+        visibility:hidden;
+        display:block;
+        position:fixed;
+        left:0;
+        top:48vh;
+        color:white;
+        padding:10px;
+        font-size: 1.5em;
+    }
+    
+    
+    #mobile-switcher {
+        visibility:hidden;
+        position: absolute;
+        right: 0;
+        top: 0;
+        display:inline-block;
+        padding: 5px;
+        background-color: #191919;
+        margin:0;
+        pointer:cursor;
+    }
+    
+
+    # mobile-switch-label {
+        margin: 2px 0 0;
+    }
+    
+    #mobile-switch-link {
+        display:block;
+        position:fixed;
+        top:40px;
+        right:0;
+        width:30px;
+        height: calc(100vh - 40px);
+        z-index:99999;
+        visibility:hidden;
+        pointer:cursor;
+    }
+    
+    @media screen and (max-width: 850px){
+    
+        #mobile-switcher {
+            visibility: visible;
+        }
+        #mobile-switch-link {
+            visibility: visible;
+        }
+        #nav-banner {
+            width: 100vw;
+            padding:5px;
+        }
+        #sidebar-container {
+            width:calc(100vw - 30px);
+        }
+        #sidebar-container {
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        }
+        #sidebar {
+            width:calc(100vw - 30px);
+        }
+
+        #map-container, iframe {
+            top:40px !important;
+            height:calc(100vh - 40px)  !important;
+            z-index: 9995;
+            width:calc(100vw - 30px) !important;
+        }       
+    }
+    
+    
+    @media screen and (max-width: 720px){
+
+        .leaflet-control-layers {
+            display:none;
+        }
+    
+    }
+    
+    #mobile-menu-circle {
+      height: 65px;
+      width: 65px;
+      background-color: #2b2b2b;
+      border-radius: 50%;
+      display: inline-block;
+      position: fixed;
+      text-align: right;
+      left: -100px;
+      padding: 15px 3px;
+      transition:.2s
+    }
+    
+    .mobile-menu-circle i {
+        display: table-cell;
+        width: 65px;
+        height: 65px;
+        padding: 5px;
+        border: none;
+        vertical-align: middle;
+        
+    }
+    
+    
+    #nav-banner p {
+        margin:4px 8px;
+        width:max-content;
+        padding
     }
 
     .listings-status-legend {
@@ -220,6 +315,12 @@
     }
     .listings-status-legend td {
         padding: 10px 5px 0;
+    }
+    
+    .listings-status-legend th {
+        font-size:1.2em;
+        padding: 10px 5px 0;
+        color: white !important
     }
 
     #status-icon {
@@ -237,7 +338,8 @@
         right:0;
         display: block;
         height:100vh;
-        width: calc(100% - 400px)
+        width: calc(100% - 400px);
+        transition:.15s;
     }
 
     iframe {
@@ -501,7 +603,77 @@
       color: white; 
       font-weight: bold; 
     }
+    
+    
+    
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 10000; /* Sit on top */
+      left: 0;
+      top: 0;
+      width: 100vw; /* Full width */
+      height: 100vh; /* Full height */
+      padding:40px;
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+    }
 
+    /* Modal Content/Box */
+    .modal-content {
+      background-color: #2b2b2b !important;
+      z-index: 10000; /* Sit on top */
+      padding: 0;
+      height: calc(100vh - 80px);
+      width: calc(100vw - 80px);
+    }
+    .modal-inner {
+      padding: 40px;
+      box-shadow: inset -12px -12px 10px rgba(0,0,0,0.25);
+      z-index: 100001; /* Sit on top */
+      overflow:auto;
+      width: 100%;
+      height: 100%;
+      background-color:#2b2b2b !important;
+    }
+
+    /* The Close Button */
+    .close {
+      position:fixed;
+      color: white !important;
+      float: right;
+      font-size: 30px;
+      font-weight: bold;
+      opacity: 1 !important;
+      margin-top: -15px;
+      
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .dataframe {
+        border-color: #d4d4d4;
+    }
+
+    .dataframe td {
+        white-space: pre;
+        max-width:120px;
+        padding: 3px;
+        overflow:auto;
+        color:white !important;
+    }
+
+    .dataframe th {
+        max-width:120px;
+        padding: 3px;
+        color:white !important;
+    }
 
     </style>
 
@@ -509,18 +681,33 @@
     <body>
 
         <div id='page-container'>
-            <div class='sidebar-container'>
+            <div id='sidebar-container'>
                     
-                    <div class='nav-banner'>
+                    <div id='nav-banner'>
                         <p>
                             <a href='/'>Home</a> &#62;
                             <a href='/clusters.html'>Clusters</a> &#62;
                             <span style='color:#448AFF'>25-3</span>
                             <a href='/host/CorpGroup24.html' style='color:#9C9C9C'>(Post Group)</a>
                         </p>
+                        
+                        
+                        <div id='mobile-switch-link'></div>
+                        <div id='mobile-switcher'>
+                            <p id='mobile-switch-label'>
+                            <b>Map </b><i class="fa fa-map" aria-hidden="true"></i> 
+                            </p>
+                        </div>
+                        
+                        <div id='open-menu-icon'>
+                            <span id="mobile-menu-circle">
+                                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        
                     </div>
                     
-                <div class='sidebar'>
+                <div id='sidebar'>
                     
         <h2 style='font-size:2.2em; margin:0 0 10px'> Cluster 25-3 </h2>
 
@@ -545,6 +732,183 @@
                     <p style='font-size:.98em'>
                         Estimated accuracy: <b style='color:#448AFF'>within 100 ft.</b></p>
                 
+    
+        
+    
+    <button id="myBtn" style='margin-top:5px'>Detailed listings data
+        <i class="fa fa-external-link-square" aria-hidden="true"></i>
+    </button>
+
+    <div id="myModal" class="modal">
+
+      <!-- Modal content -->
+      <div class="modal-content">
+      <div class="modal-inner">
+        <span class="close">&times;</span>
+        
+        
+        <h2 style='margin-top:15px;'>
+            Cluster: <b>25-3</b>
+        <h2>
+        <h3>
+        <span> 3 total listings </span> | 
+        
+        <a href='/cluster/25-3—data.csv' download="cluster-25-3_listings.csv">
+                            <i class="fa fa-download" aria-hidden="true"></i>
+                            Download data as a CSV </a>
+        </h3>
+        <p>
+        <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Id</th>
+      <th>Listing<br>url</th>
+      <th>Cluster</th>
+      <th>Name</th>
+      <th>Host id</th>
+      <th>Host url</th>
+      <th>Host</th>
+      <th>Neighbourhood<br>cleansed</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Property<br>type</th>
+      <th>Room type</th>
+      <th>Accommodates</th>
+      <th>Bedrooms</th>
+      <th>Beds</th>
+      <th>Price</th>
+      <th>Minimum<br>minimum<br>nights</th>
+      <th>Availability<br>365</th>
+      <th>Number<br>of<br>reviews</th>
+      <th>License</th>
+      <th>Host alias</th>
+      <th>Alias id</th>
+      <th>Status</th>
+      <th>Isd status</th>
+      <th>Isd<br>address</th>
+      <th>Isd<br>category</th>
+      <th>License<br>listing<br>count</th>
+      <th>License<br>cat<br>max<br>exceed</th>
+      <th>Simple<br>status</th>
+      <th>Full<br>status</th>
+      <th>Centroid<br>group<br>distance</th>
+      <th>Last<br>scraped</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>6066455</td>
+      <td><a href="https://www.airbnb.com/rooms/6066455" target="_blank">https://www.airbnb.com/rooms/6066455</a></td>
+      <td>25-3</td>
+      <td>Large 3.5 BR|2 BA Penthouse Duplex</td>
+      <td>CorpGroup24</td>
+      <td><a href="https://www.airbnb.com/users/show/9410008" target="_blank">https://www.airbnb.com/users/show/9410008</a></td>
+      <td>Post Group</td>
+      <td>Beacon Hill</td>
+      <td>42.35964</td>
+      <td>-71.07094</td>
+      <td>Entire apartment</td>
+      <td>Entire home/apt</td>
+      <td>8</td>
+      <td>4.0</td>
+      <td>5.0</td>
+      <td>622.0</td>
+      <td>2.0</td>
+      <td>361</td>
+      <td>181</td>
+      <td>STRHS</td>
+      <td>Jason</td>
+      <td>9410008.0</td>
+      <td>Exempt (not verified)</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Exempt: Hospital Stays</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Exempt (not verified)</td>
+      <td>Exempt (not verified): Hospital Stays</td>
+      <td>58.649916</td>
+      <td>2020-09-01</td>
+    </tr>
+    <tr>
+      <td>6326257</td>
+      <td><a href="https://www.airbnb.com/rooms/6326257" target="_blank">https://www.airbnb.com/rooms/6326257</a></td>
+      <td>25-3</td>
+      <td>Renovated 2BR | 1.5BA on Charles St</td>
+      <td>CorpGroup24</td>
+      <td><a href="https://www.airbnb.com/users/show/9410008" target="_blank">https://www.airbnb.com/users/show/9410008</a></td>
+      <td>Post Group</td>
+      <td>Beacon Hill</td>
+      <td>42.36013</td>
+      <td>-71.07083</td>
+      <td>Entire apartment</td>
+      <td>Entire home/apt</td>
+      <td>5</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>397.0</td>
+      <td>2.0</td>
+      <td>307</td>
+      <td>214</td>
+      <td>STRHS</td>
+      <td>Jason</td>
+      <td>9410008.0</td>
+      <td>Exempt (not verified)</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Exempt: Hospital Stays</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Exempt (not verified)</td>
+      <td>Exempt (not verified): Hospital Stays</td>
+      <td>122.524106</td>
+      <td>2020-08-31</td>
+    </tr>
+    <tr>
+      <td>16693642</td>
+      <td><a href="https://www.airbnb.com/rooms/16693642" target="_blank">https://www.airbnb.com/rooms/16693642</a></td>
+      <td>25-3</td>
+      <td>Brand New 1 BR | 1 BA on Charles St</td>
+      <td>CorpGroup24</td>
+      <td><a href="https://www.airbnb.com/users/show/9410008" target="_blank">https://www.airbnb.com/users/show/9410008</a></td>
+      <td>Post Group</td>
+      <td>Beacon Hill</td>
+      <td>42.35963</td>
+      <td>-71.07098</td>
+      <td>Entire apartment</td>
+      <td>Entire home/apt</td>
+      <td>3</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>171.0</td>
+      <td>2.0</td>
+      <td>356</td>
+      <td>189</td>
+      <td>STRHS</td>
+      <td>Jason</td>
+      <td>9410008.0</td>
+      <td>Exempt (not verified)</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Exempt: Hospital Stays</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Exempt (not verified)</td>
+      <td>Exempt (not verified): Hospital Stays</td>
+      <td>64.275583</td>
+      <td>2020-08-31</td>
+    </tr>
+  </tbody>
+</table>
+<p>3 rows × 32 columns</p>
+        </p>  
+      </div>
+      </div>
+
+    </div>
+    
+    
+    
         <hr class='hr-lite'>
         
         <h3 style='margin-bottom:12px'>License Status Details</h3>
@@ -708,7 +1072,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_2f4290b953224ce2b7ad7f4b27fc6b01 {
+                #map_71aece14f65642aeb8f4c49aaf000d3c {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -730,17 +1094,17 @@
          font-size:12px">
             <span style='margin: 0px;'>
                 <a target='blank' href='insideairbnb.com'>InsideAirbnb</a>:
-                    2020-09-01 | STR registry: 2020-08-05
+                    Sep. 2020 | STR registry: Aug. 2020
             </span>
           </div> 
     
-            <div class="folium-map" id="map_2f4290b953224ce2b7ad7f4b27fc6b01" ></div>
+            <div class="folium-map" id="map_71aece14f65642aeb8f4c49aaf000d3c" ></div>
         
 </body>
 <script>    
     
-            var map_2f4290b953224ce2b7ad7f4b27fc6b01 = L.map(
-                "map_2f4290b953224ce2b7ad7f4b27fc6b01",
+            var map_71aece14f65642aeb8f4c49aaf000d3c = L.map(
+                "map_71aece14f65642aeb8f4c49aaf000d3c",
                 {
                     center: [42.359880000000004, -71.07090500000001],
                     crs: L.CRS.EPSG3857,
@@ -754,30 +1118,31 @@
 
         
     
-            var tile_layer_a584139a2ea74077babdc656a67d2c3f = L.tileLayer(
+            var tile_layer_19fb5baa33c34c3aad33bf39ad83032a = L.tileLayer(
                 "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
                 {"attribution": "\u0026copy; \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"http://cartodb.com/attributions\"\u003eCartoDB\u003c/a\u003e, CartoDB \u003ca href =\"http://cartodb.com/attributions\"\u003eattributions\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            ).addTo(map_2f4290b953224ce2b7ad7f4b27fc6b01);
+            ).addTo(map_71aece14f65642aeb8f4c49aaf000d3c);
         
     
-            var feature_group_2dfc6e39c6b3491fb6a1419212fc7df3 = L.featureGroup(
+            var feature_group_dedb5057eba542b3bbf7d5c3b69367bf = L.featureGroup(
                 {}
-            ).addTo(map_2f4290b953224ce2b7ad7f4b27fc6b01);
+            ).addTo(map_71aece14f65642aeb8f4c49aaf000d3c);
         
     
-            var circle_4533f68ac1324f7abe2748fe9cf34f65 = L.circle(
+            var circle_1417f1fee0f74f27a58d9e11bac8b5de = L.circle(
                 [42.3598, -71.07091666666669],
                 {"bubblingMouseEvents": true, "color": "#448AFF", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#9E9E9E", "fillOpacity": 0.4225426695675198, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.7225426695675198, "radius": 80.0, "stroke": true, "weight": 2}
-            ).addTo(map_2f4290b953224ce2b7ad7f4b27fc6b01);
+            ).addTo(map_71aece14f65642aeb8f4c49aaf000d3c);
         
     
-            circle_4533f68ac1324f7abe2748fe9cf34f65.bindTooltip(
+            circle_1417f1fee0f74f27a58d9e11bac8b5de.bindTooltip(
                 `<div>
                      
         <p style='font-size:1.25em; margin:0; color:#448AFF'>
         Cluster <b>25-3
         </b></p>
-        <p style='font-size:1.0em; margin: 0 0 1px; color:#9E9E9E'><span style='color:black!important;font-size:.9em'>
+        <p style='font-size:1.0em; margin: 0 0 1px; color:#9E9E9E'><span style='color:#448AFF!important;font-size:.92em'>
+            <i class="fa fa-square-o"></i> No change detected (since Jul. 2020)</span> <br> <span style='color:black!important;font-size:.95em'>
                 <b>Listings license status:</b></span><br>
             <i class="fa fa-question-circle"></i> Exempt (not verified) </p>
         Host: <b>Post Group </b> | Listings: <b>3</b>
@@ -790,19 +1155,20 @@
             );
         
     
-            var circle_36e8cb1ae14945ca913acd65252b283a = L.circle(
+            var circle_035035eda29b4ce9865d247f27185d1a = L.circle(
                 [42.3598, -71.07091666666669],
                 {"bubblingMouseEvents": true, "color": "#448AFF", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#448AFF", "fillOpacity": 1, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.7, "radius": 6, "stroke": true, "weight": 4}
-            ).addTo(map_2f4290b953224ce2b7ad7f4b27fc6b01);
+            ).addTo(map_71aece14f65642aeb8f4c49aaf000d3c);
         
     
-            circle_36e8cb1ae14945ca913acd65252b283a.bindTooltip(
+            circle_035035eda29b4ce9865d247f27185d1a.bindTooltip(
                 `<div>
                      
         <p style='font-size:1.25em; margin:0; color:#448AFF'>
         Cluster <b>25-3
         </b></p>
-        <p style='font-size:1.0em; margin: 0 0 1px; color:#9E9E9E'><span style='color:black!important;font-size:.9em'>
+        <p style='font-size:1.0em; margin: 0 0 1px; color:#9E9E9E'><span style='color:#448AFF!important;font-size:.92em'>
+            <i class="fa fa-square-o"></i> No change detected (since Jul. 2020)</span> <br> <span style='color:black!important;font-size:.95em'>
                 <b>Listings license status:</b></span><br>
             <i class="fa fa-question-circle"></i> Exempt (not verified) </p>
         Host: <b>Post Group </b> | Listings: <b>3</b>
@@ -815,31 +1181,31 @@
             );
         
     
-            var feature_group_a1a442f9aa45454c90a1e8b2589d3502 = L.featureGroup(
+            var feature_group_9a4168d5adaa4990b8afa7c1aa3faeba = L.featureGroup(
                 {}
-            ).addTo(map_2f4290b953224ce2b7ad7f4b27fc6b01);
+            ).addTo(map_71aece14f65642aeb8f4c49aaf000d3c);
         
     
-            var circle_57ef87f618c043cfa5f2d5f2e02a9c18 = L.circle(
+            var circle_d90c4dea29504a66b3ddcf7634bc4370 = L.circle(
                 [42.35964, -71.07094000000002],
                 {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#9E9E9E", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_a1a442f9aa45454c90a1e8b2589d3502);
+            ).addTo(feature_group_9a4168d5adaa4990b8afa7c1aa3faeba);
         
     
-        var popup_975ecc7f668c404d99c6aa452fd26dbc = L.popup({"maxWidth": "100%"});
+        var popup_dff89ed8e1b84fd99e984e9608eac0e9 = L.popup({"maxWidth": "100%"});
 
         
-            var html_6c8731d48b244ed290dacd1cca3e2878 = $(`<div id="html_6c8731d48b244ed290dacd1cca3e2878" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/25-3.html'>                                 <b>Cluster 25-3</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_975ecc7f668c404d99c6aa452fd26dbc.setContent(html_6c8731d48b244ed290dacd1cca3e2878);
+            var html_feae9b925613498487d7e1311f31c745 = $(`<div id="html_feae9b925613498487d7e1311f31c745" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/25-3.html'>                                 <b>Cluster 25-3</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
+            popup_dff89ed8e1b84fd99e984e9608eac0e9.setContent(html_feae9b925613498487d7e1311f31c745);
         
 
-        circle_57ef87f618c043cfa5f2d5f2e02a9c18.bindPopup(popup_975ecc7f668c404d99c6aa452fd26dbc)
+        circle_d90c4dea29504a66b3ddcf7634bc4370.bindPopup(popup_dff89ed8e1b84fd99e984e9608eac0e9)
         ;
 
         
     
     
-            circle_57ef87f618c043cfa5f2d5f2e02a9c18.bindTooltip(
+            circle_d90c4dea29504a66b3ddcf7634bc4370.bindTooltip(
                 `<div>
                      
         <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>6066455</b></p>
@@ -861,26 +1227,26 @@
             );
         
     
-            var circle_99d6cf83b6b246f1950fe225f48450ff = L.circle(
+            var circle_6baa3ac1821c4d259c5841788c81d0e4 = L.circle(
                 [42.36013, -71.07083],
                 {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#9E9E9E", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_a1a442f9aa45454c90a1e8b2589d3502);
+            ).addTo(feature_group_9a4168d5adaa4990b8afa7c1aa3faeba);
         
     
-        var popup_6b462a30ff0a442daa04401c3221d5d1 = L.popup({"maxWidth": "100%"});
+        var popup_cd009e4dc03d4f02b8b641654af70b0c = L.popup({"maxWidth": "100%"});
 
         
-            var html_bbd2e20242e24f32a9937d797d96dff0 = $(`<div id="html_bbd2e20242e24f32a9937d797d96dff0" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/25-3.html'>                                 <b>Cluster 25-3</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_6b462a30ff0a442daa04401c3221d5d1.setContent(html_bbd2e20242e24f32a9937d797d96dff0);
+            var html_96c97d354d6d4ff09b8f838361275f75 = $(`<div id="html_96c97d354d6d4ff09b8f838361275f75" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/25-3.html'>                                 <b>Cluster 25-3</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
+            popup_cd009e4dc03d4f02b8b641654af70b0c.setContent(html_96c97d354d6d4ff09b8f838361275f75);
         
 
-        circle_99d6cf83b6b246f1950fe225f48450ff.bindPopup(popup_6b462a30ff0a442daa04401c3221d5d1)
+        circle_6baa3ac1821c4d259c5841788c81d0e4.bindPopup(popup_cd009e4dc03d4f02b8b641654af70b0c)
         ;
 
         
     
     
-            circle_99d6cf83b6b246f1950fe225f48450ff.bindTooltip(
+            circle_6baa3ac1821c4d259c5841788c81d0e4.bindTooltip(
                 `<div>
                      
         <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>6326257</b></p>
@@ -902,26 +1268,26 @@
             );
         
     
-            var circle_b34f6b6a564a476a80a873426dd5fcc9 = L.circle(
+            var circle_7bb4448e3f4b441585c543234420cf53 = L.circle(
                 [42.35963, -71.07098],
                 {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#9E9E9E", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_a1a442f9aa45454c90a1e8b2589d3502);
+            ).addTo(feature_group_9a4168d5adaa4990b8afa7c1aa3faeba);
         
     
-        var popup_7876187daceb4844bcd5e5e53fa567e8 = L.popup({"maxWidth": "100%"});
+        var popup_9526a9574ea54e24977cf4e248a55ec3 = L.popup({"maxWidth": "100%"});
 
         
-            var html_8c299dee75aa4f0b9a713fc30592a48c = $(`<div id="html_8c299dee75aa4f0b9a713fc30592a48c" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/25-3.html'>                                 <b>Cluster 25-3</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_7876187daceb4844bcd5e5e53fa567e8.setContent(html_8c299dee75aa4f0b9a713fc30592a48c);
+            var html_5597f7698b9a4d359b6b00177e0d4237 = $(`<div id="html_5597f7698b9a4d359b6b00177e0d4237" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/25-3.html'>                                 <b>Cluster 25-3</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
+            popup_9526a9574ea54e24977cf4e248a55ec3.setContent(html_5597f7698b9a4d359b6b00177e0d4237);
         
 
-        circle_b34f6b6a564a476a80a873426dd5fcc9.bindPopup(popup_7876187daceb4844bcd5e5e53fa567e8)
+        circle_7bb4448e3f4b441585c543234420cf53.bindPopup(popup_9526a9574ea54e24977cf4e248a55ec3)
         ;
 
         
     
     
-            circle_b34f6b6a564a476a80a873426dd5fcc9.bindTooltip(
+            circle_7bb4448e3f4b441585c543234420cf53.bindTooltip(
                 `<div>
                      
         <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>16693642</b></p>
@@ -943,19 +1309,19 @@
             );
         
     
-            var layer_control_bf85238ef1c74c27bd571482ce1e27e5 = {
+            var layer_control_1d6fdc8777854a5c9fec6fd40a46ec2e = {
                 base_layers : {
                 },
                 overlays :  {
-                    "\u003cspan style=\u0027font-size:15px\u0027\u003e\n                        Known STR buildings near large clusters\n                        \u003ci class=\u0027fa fa-building\u0027\n                           style=\u0027color:#5E35B1; margin: 0 3px;\u0027\u003e\u003c/i\u003e\n                        \u003c/span\u003e" : feature_group_2dfc6e39c6b3491fb6a1419212fc7df3,
-                    "\u003cspan style=\u0027font-size:15px\u0027\u003e\n                        Include individual listings on map\n                        \u003ci class=\u0027fa fa-dot-circle-o\u0027\n                           style=\u0027color:red; margin: 0 3px;\u0027\u003e\u003c/i\u003e\n                    \u003c/span\u003e" : feature_group_a1a442f9aa45454c90a1e8b2589d3502,
+                    "\u003cspan style=\u0027font-size:15px\u0027\u003e\n                        Known STR buildings near large clusters\n                        \u003ci class=\u0027fa fa-building\u0027\n                           style=\u0027color:#5E35B1; margin: 0 3px;\u0027\u003e\u003c/i\u003e\n                        \u003c/span\u003e" : feature_group_dedb5057eba542b3bbf7d5c3b69367bf,
+                    "\u003cspan style=\u0027font-size:15px\u0027\u003e\n                        Include individual listings on map\n                        \u003ci class=\u0027fa fa-dot-circle-o\u0027\n                           style=\u0027color:red; margin: 0 3px;\u0027\u003e\u003c/i\u003e\n                    \u003c/span\u003e" : feature_group_9a4168d5adaa4990b8afa7c1aa3faeba,
                 },
             };
             L.control.layers(
-                layer_control_bf85238ef1c74c27bd571482ce1e27e5.base_layers,
-                layer_control_bf85238ef1c74c27bd571482ce1e27e5.overlays,
+                layer_control_1d6fdc8777854a5c9fec6fd40a46ec2e.base_layers,
+                layer_control_1d6fdc8777854a5c9fec6fd40a46ec2e.overlays,
                 {"autoZIndex": true, "collapsed": false, "position": "topright"}
-            ).addTo(map_2f4290b953224ce2b7ad7f4b27fc6b01);
+            ).addTo(map_71aece14f65642aeb8f4c49aaf000d3c);
         
 </script>
             </div>
@@ -975,6 +1341,93 @@
               this.innerHTML = "[ &ndash; ] Learn less... ";
             } 
         });
+    </script>
+    <script>
+    
+        var modal = document.getElementById("myModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on the button, open the modal
+        btn.onclick = function() {
+          modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+          modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        }
+
+    </script>
+    <script>
+    
+    
+        document.getElementById("mobile-switcher"
+            ).addEventListener("click", switch_mobile_menu);
+        document.getElementById("mobile-switch-link"
+            ).addEventListener("click", switch_mobile_menu);
+        document.getElementById("mobile-menu-circle"
+            ).addEventListener("click", switch_mobile_menu);
+            
+        var mapOpen = false
+        function switch_mobile_menu() {
+
+            var navbar = document.getElementById("nav-banner");
+            var sidebar = document.getElementById("sidebar-container");
+            var map = document.getElementById("map-container");
+            var slabel = document.getElementById("mobile-switch-label");
+            var openico = document.getElementById("open-menu-icon");
+            var slink = document.getElementById("mobile-switch-link");
+            var menucir = document.getElementById("mobile-menu-circle");
+
+
+            if ( mapOpen ){
+                  sidebar.setAttribute("style","left:0") ;
+
+                  map.setAttribute("style","left:calc(100vw - 100px)") ;
+                  map.setAttribute("style","width:800px") ;
+
+                  slabel.innerHTML = "<b>Map </b> <i class='fa fa-map' aria-hidden='true'></i>";
+                  
+                  openico.setAttribute("style","visibility:hidden") ;
+                  menucir.setAttribute("style","left:-100px") ;
+                  
+                  slink.setAttribute("style","right:0") ;
+                  slink.setAttribute("style","width:30px") ;
+                  
+
+                  mapOpen = false;
+            }
+            else {
+                  sidebar.setAttribute("style","left:calc(-100vw + 40px)") ; 
+
+                  map.setAttribute("style","left:10px !important") ;
+                  map.setAttribute("style","width:calc(100vw - 10px) !important") ;
+
+                  slabel.innerHTML = "<b>Details </b> <i class='fa fa-bars' aria-hidden='true'></i>";
+                  
+                  openico.setAttribute("style","visibility:visible") ;
+                  menucir.setAttribute("style","left:-30px") ;
+
+                  slink.setAttribute("style","width:20px") ;
+                  slink.setAttribute("style","left:0px") ;
+
+                  mapOpen = true;
+            } 
+        };
+
+    
     </script>
     <script>
     

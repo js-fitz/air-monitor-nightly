@@ -76,18 +76,6 @@
         display: none !important
     }
     
-    
-        .leaflet-pane .leaflet-interactive {
-            transition: fill-opacity .1s ease-in-out;
-            transition: stroke .1s ease-in-out;
-
-        }
-
-        .leaflet-pane .leaflet-interactive:hover {
-            fill-opacity:.8 !important;
-            stroke:white !important;
-        }
-        
     .centroid-link-btn {
         color:white !important;
         font-size:18px;
@@ -172,15 +160,17 @@
         box-sizing: border-box;
     }
 
-    .sidebar-container {
+    #sidebar-container {
         position:fixed;
         display: block;
         height: 100vh;
         width:400px;
         overflow:auto;
+        transition:.2s;
+        z-index: 9999;
     }
 
-    .nav-banner {
+    #nav-banner {
         position:fixed;
         top:0;
         left:0;
@@ -189,15 +179,10 @@
         width:400px;
         background-color:#191919;
         overflow:auto;
-    }
-    
-    .nav-banner p {
-        margin:4px 8px;
-        width:max-content;
-        padding
+        z-index: 10000;
     }
 
-    .sidebar {
+    #sidebar {
         width:400px;
         top: 25px;
         position:fixed;
@@ -208,7 +193,117 @@
         box-sizing: border-box;
         overflow-y: auto;
         padding:30px;
-        box-shadow: inset 0 0 15px rgba(0,0,0,0.4);
+        transition:.15s;
+    }
+    
+    #open-menu-icon {
+        visibility:hidden;
+        display:block;
+        position:fixed;
+        left:0;
+        top:48vh;
+        color:white;
+        padding:10px;
+        font-size: 1.5em;
+    }
+    
+    
+    #mobile-switcher {
+        visibility:hidden;
+        position: absolute;
+        right: 0;
+        top: 0;
+        display:inline-block;
+        padding: 5px;
+        background-color: #191919;
+        margin:0;
+        pointer:cursor;
+    }
+    
+
+    # mobile-switch-label {
+        margin: 2px 0 0;
+    }
+    
+    #mobile-switch-link {
+        display:block;
+        position:fixed;
+        top:40px;
+        right:0;
+        width:30px;
+        height: calc(100vh - 40px);
+        z-index:99999;
+        visibility:hidden;
+        pointer:cursor;
+    }
+    
+    @media screen and (max-width: 850px){
+    
+        #mobile-switcher {
+            visibility: visible;
+        }
+        #mobile-switch-link {
+            visibility: visible;
+        }
+        #nav-banner {
+            width: 100vw;
+            padding:5px;
+        }
+        #sidebar-container {
+            width:calc(100vw - 30px);
+        }
+        #sidebar-container {
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        }
+        #sidebar {
+            width:calc(100vw - 30px);
+        }
+
+        #map-container, iframe {
+            top:40px !important;
+            height:calc(100vh - 40px)  !important;
+            z-index: 9995;
+            width:calc(100vw - 30px) !important;
+        }       
+    }
+    
+    
+    @media screen and (max-width: 720px){
+
+        .leaflet-control-layers {
+            display:none;
+        }
+    
+    }
+    
+    #mobile-menu-circle {
+      height: 65px;
+      width: 65px;
+      background-color: #2b2b2b;
+      border-radius: 50%;
+      display: inline-block;
+      position: fixed;
+      text-align: right;
+      left: -100px;
+      padding: 15px 3px;
+      transition:.2s
+    }
+    
+    .mobile-menu-circle i {
+        display: table-cell;
+        width: 65px;
+        height: 65px;
+        padding: 5px;
+        border: none;
+        vertical-align: middle;
+        
+    }
+    
+    
+    #nav-banner p {
+        margin:4px 8px;
+        width:max-content;
+        padding
     }
 
     .listings-status-legend {
@@ -220,6 +315,12 @@
     }
     .listings-status-legend td {
         padding: 10px 5px 0;
+    }
+    
+    .listings-status-legend th {
+        font-size:1.2em;
+        padding: 10px 5px 0;
+        color: white !important
     }
 
     #status-icon {
@@ -237,7 +338,8 @@
         right:0;
         display: block;
         height:100vh;
-        width: calc(100% - 400px)
+        width: calc(100% - 400px);
+        transition:.15s;
     }
 
     iframe {
@@ -501,7 +603,77 @@
       color: white; 
       font-weight: bold; 
     }
+    
+    
+    
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 10000; /* Sit on top */
+      left: 0;
+      top: 0;
+      width: 100vw; /* Full width */
+      height: 100vh; /* Full height */
+      padding:40px;
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+    }
 
+    /* Modal Content/Box */
+    .modal-content {
+      background-color: #2b2b2b !important;
+      z-index: 10000; /* Sit on top */
+      padding: 0;
+      height: calc(100vh - 80px);
+      width: calc(100vw - 80px);
+    }
+    .modal-inner {
+      padding: 40px;
+      box-shadow: inset -12px -12px 10px rgba(0,0,0,0.25);
+      z-index: 100001; /* Sit on top */
+      overflow:auto;
+      width: 100%;
+      height: 100%;
+      background-color:#2b2b2b !important;
+    }
+
+    /* The Close Button */
+    .close {
+      position:fixed;
+      color: white !important;
+      float: right;
+      font-size: 30px;
+      font-weight: bold;
+      opacity: 1 !important;
+      margin-top: -15px;
+      
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .dataframe {
+        border-color: #d4d4d4;
+    }
+
+    .dataframe td {
+        white-space: pre;
+        max-width:120px;
+        padding: 3px;
+        overflow:auto;
+        color:white !important;
+    }
+
+    .dataframe th {
+        max-width:120px;
+        padding: 3px;
+        color:white !important;
+    }
 
     </style>
 
@@ -509,42 +681,234 @@
     <body>
 
         <div id='page-container'>
-            <div class='sidebar-container'>
+            <div id='sidebar-container'>
                     
-                    <div class='nav-banner'>
+                    <div id='nav-banner'>
                         <p>
                             <a href='/'>Home</a> &#62;
                             <a href='/clusters.html'>Clusters</a> &#62;
                             <span style='color:#448AFF'>29-2</span>
-                            <a href='/host/CorpGroup29.html' style='color:#9C9C9C'>(Kat)</a>
+                            <a href='/host/CorpGroup28.html' style='color:#9C9C9C'>(Belkis)</a>
                         </p>
+                        
+                        
+                        <div id='mobile-switch-link'></div>
+                        <div id='mobile-switcher'>
+                            <p id='mobile-switch-label'>
+                            <b>Map </b><i class="fa fa-map" aria-hidden="true"></i> 
+                            </p>
+                        </div>
+                        
+                        <div id='open-menu-icon'>
+                            <span id="mobile-menu-circle">
+                                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        
                     </div>
                     
-                <div class='sidebar'>
+                <div id='sidebar'>
                     
         <h2 style='font-size:2.2em; margin:0 0 10px'> Cluster 29-2 </h2>
 
         <h3 style='margin-bottom:5px'>
-            <a href='#listings'><b>2 listings</b></a> |
+            <a href='#listings'><b>3 listings</b></a> |
             1 account</b> 
         </h3> 
         
         <p class='text-lite'>
-            <b>10</b> total accommodations
+            <b>3</b> total accommodations
         </p> 
         <hr class='hr-lite'>
         <h3 style='font-size: 1.6em; margin:15px 0 5px'>
-        Host: <a href='/host/CorpGroup29.html' class='host-info-link'> Kat</a> </h3>
+        Host: <a href='/host/CorpGroup28.html' class='host-info-link'> Belkis</a> </h3>
         
         <p style='margin-top:10px; margin-bottom:8px'>At or near:</p>
-        <p style='font-size:1.25em; margin-bottom:5px'><b>39 Dalton Street, Back Bay</b></p>
+        <p style='font-size:1.25em; margin-bottom:5px'><b>15 Erie Place, Roxbury</b></p>
         <p class='text-lite' style='font-size:.95em; margin:0'>
                         <b>Source:</b>
     
                         Inferred centerpoint of cluster listings</p>
                     <p style='font-size:.98em'>
-                        Estimated accuracy: <b style='color:#448AFF'>unknown (too few)</b></p>
+                        Estimated accuracy: <b style='color:#448AFF'>within 100 ft.</b></p>
                 
+    
+        
+    
+    <button id="myBtn" style='margin-top:5px'>Detailed listings data
+        <i class="fa fa-external-link-square" aria-hidden="true"></i>
+    </button>
+
+    <div id="myModal" class="modal">
+
+      <!-- Modal content -->
+      <div class="modal-content">
+      <div class="modal-inner">
+        <span class="close">&times;</span>
+        
+        
+        <h2 style='margin-top:15px;'>
+            Cluster: <b>29-2</b>
+        <h2>
+        <h3>
+        <span> 3 total listings </span> | 
+        
+        <a href='/cluster/29-2—data.csv' download="cluster-29-2_listings.csv">
+                            <i class="fa fa-download" aria-hidden="true"></i>
+                            Download data as a CSV </a>
+        </h3>
+        <p>
+        <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Id</th>
+      <th>Listing<br>url</th>
+      <th>Cluster</th>
+      <th>Name</th>
+      <th>Host id</th>
+      <th>Host url</th>
+      <th>Host</th>
+      <th>Neighbourhood<br>cleansed</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Property<br>type</th>
+      <th>Room type</th>
+      <th>Accommodates</th>
+      <th>Bedrooms</th>
+      <th>Beds</th>
+      <th>Price</th>
+      <th>Minimum<br>minimum<br>nights</th>
+      <th>Availability<br>365</th>
+      <th>Number<br>of<br>reviews</th>
+      <th>License</th>
+      <th>Host alias</th>
+      <th>Alias id</th>
+      <th>Status</th>
+      <th>Isd status</th>
+      <th>Isd<br>address</th>
+      <th>Isd<br>category</th>
+      <th>License<br>listing<br>count</th>
+      <th>License<br>cat<br>max<br>exceed</th>
+      <th>Simple<br>status</th>
+      <th>Full<br>status</th>
+      <th>Centroid<br>group<br>distance</th>
+      <th>Last<br>scraped</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>27920247</td>
+      <td><a href="https://www.airbnb.com/rooms/27920247" target="_blank">https://www.airbnb.com/rooms/27920247</a></td>
+      <td>29-2</td>
+      <td>Boston Private room (1-3)</td>
+      <td>CorpGroup28</td>
+      <td><a href="https://www.airbnb.com/users/show/209395207" target="_blank">https://www.airbnb.com/users/show/209395207</a></td>
+      <td>Belkis</td>
+      <td>Jamaica Plain</td>
+      <td>42.31350</td>
+      <td>-71.09928</td>
+      <td>Private room in apartment</td>
+      <td>Private room</td>
+      <td>1</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>39.00</td>
+      <td>29.0</td>
+      <td>152</td>
+      <td>11</td>
+      <td>Missing</td>
+      <td>Belkis</td>
+      <td>209395207.0</td>
+      <td>No license claimed</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>No license claimed</td>
+      <td>No license claimed</td>
+      <td>88.356870</td>
+      <td>2020-09-01</td>
+    </tr>
+    <tr>
+      <td>27922387</td>
+      <td><a href="https://www.airbnb.com/rooms/27922387" target="_blank">https://www.airbnb.com/rooms/27922387</a></td>
+      <td>29-2</td>
+      <td>Boston private room (1-2)</td>
+      <td>CorpGroup28</td>
+      <td><a href="https://www.airbnb.com/users/show/209395207" target="_blank">https://www.airbnb.com/users/show/209395207</a></td>
+      <td>Belkis</td>
+      <td>Jamaica Plain</td>
+      <td>42.31390</td>
+      <td>-71.09963</td>
+      <td>Private room in apartment</td>
+      <td>Private room</td>
+      <td>1</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>39.14</td>
+      <td>29.0</td>
+      <td>334</td>
+      <td>11</td>
+      <td>Missing</td>
+      <td>Belkis</td>
+      <td>209395207.0</td>
+      <td>No license claimed</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>No license claimed</td>
+      <td>No license claimed</td>
+      <td>91.047370</td>
+      <td>2020-09-01</td>
+    </tr>
+    <tr>
+      <td>37931130</td>
+      <td><a href="https://www.airbnb.com/rooms/37931130" target="_blank">https://www.airbnb.com/rooms/37931130</a></td>
+      <td>29-2</td>
+      <td>Boston private room (2-5) Floor 2 - Room #5</td>
+      <td>CorpGroup28</td>
+      <td><a href="https://www.airbnb.com/users/show/209395207" target="_blank">https://www.airbnb.com/users/show/209395207</a></td>
+      <td>Belkis</td>
+      <td>Jamaica Plain</td>
+      <td>42.31379</td>
+      <td>-71.09924</td>
+      <td>Private room in apartment</td>
+      <td>Private room</td>
+      <td>1</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>29.00</td>
+      <td>29.0</td>
+      <td>332</td>
+      <td>3</td>
+      <td>Missing</td>
+      <td>Belkis</td>
+      <td>209395207.0</td>
+      <td>No license claimed</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>No license claimed</td>
+      <td>No license claimed</td>
+      <td>44.510115</td>
+      <td>2020-09-01</td>
+    </tr>
+  </tbody>
+</table>
+<p>3 rows × 32 columns</p>
+        </p>  
+      </div>
+      </div>
+
+    </div>
+    
+    
+    
         <hr class='hr-lite'>
         
         <h3 style='margin-bottom:12px'>License Status Details</h3>
@@ -572,7 +936,7 @@
                                 
                                 <td style='text-align:right'>  
                                     <p>
-                                    2 x</p> 
+                                    3 x</p> 
                                 </td>
                                 
                                 <td>                                      
@@ -598,7 +962,7 @@
                 <ul>
                     
                     <li>
-                        <p>Missing - <b>No license claimed</b> (2 listings)</b></p>
+                        <p>Missing - <b>No license claimed</b> (3 listings)</b></p>
                     </li>
                 
                 </ul>
@@ -623,35 +987,52 @@
                         <a href='/cluster/29-2—data.csv' download="cluster-29-2_listings.csv">
                             <i class="fa fa-download" aria-hidden="true"></i>
                             Download cluster data as a CSV </a>
-        <a href='https://www.airbnb.com/rooms/23015741' target='_blank'>
+        <a href='https://www.airbnb.com/rooms/27920247' target='_blank'>
         <div class='centroid-list-item'>
             
-                <p style='font-size:1em'><b>23015741</b></p>
-                <p style='font-size:1.1em'>NEW Lux Modern Apartment on Clearway st #38</p>
+                <p style='font-size:1em'><b>27920247</b></p>
+                <p style='font-size:1.1em'>Boston Private room (1-3)</p>
             
                 <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>91</b></p>
+                    <b>29</b></p>
                 <p> <span class='text-lite'>License:</span>
                     <b>Missing</b> (No license claimed)</p>
                     
-                <a href='https://www.airbnb.com/rooms/23015741' target='_blank'>View listing photos &#8594;</a>
+                <a href='https://www.airbnb.com/rooms/27920247' target='_blank'>View listing photos &#8594;</a>
             
         </div>
         </a>
 
         
-        <a href='https://www.airbnb.com/rooms/33345730' target='_blank'>
+        <a href='https://www.airbnb.com/rooms/27922387' target='_blank'>
         <div class='centroid-list-item'>
             
-                <p style='font-size:1em'><b>33345730</b></p>
-                <p style='font-size:1.1em'>New 2 Bed - Heart of Downtown - Hynes / Prudential</p>
+                <p style='font-size:1em'><b>27922387</b></p>
+                <p style='font-size:1.1em'>Boston private room (1-2)</p>
             
                 <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>91</b></p>
+                    <b>29</b></p>
                 <p> <span class='text-lite'>License:</span>
                     <b>Missing</b> (No license claimed)</p>
                     
-                <a href='https://www.airbnb.com/rooms/33345730' target='_blank'>View listing photos &#8594;</a>
+                <a href='https://www.airbnb.com/rooms/27922387' target='_blank'>View listing photos &#8594;</a>
+            
+        </div>
+        </a>
+
+        
+        <a href='https://www.airbnb.com/rooms/37931130' target='_blank'>
+        <div class='centroid-list-item'>
+            
+                <p style='font-size:1em'><b>37931130</b></p>
+                <p style='font-size:1.1em'>Boston private room (2-5) Floor 2 - Room #5</p>
+            
+                <p> <span class='text-lite'>Minimum nights per stay:</span>
+                    <b>29</b></p>
+                <p> <span class='text-lite'>License:</span>
+                    <b>Missing</b> (No license claimed)</p>
+                    
+                <a href='https://www.airbnb.com/rooms/37931130' target='_blank'>View listing photos &#8594;</a>
             
         </div>
         </a>
@@ -691,7 +1072,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_ea4cffe59a764fe49885d376f6cec753 {
+                #map_96f893043c9a4e44ae7fed6498721f07 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -713,19 +1094,19 @@
          font-size:12px">
             <span style='margin: 0px;'>
                 <a target='blank' href='insideairbnb.com'>InsideAirbnb</a>:
-                    2020-08-31 | STR registry: 2020-08-05
+                    Sep. 2020 | STR registry: Aug. 2020
             </span>
           </div> 
     
-            <div class="folium-map" id="map_ea4cffe59a764fe49885d376f6cec753" ></div>
+            <div class="folium-map" id="map_96f893043c9a4e44ae7fed6498721f07" ></div>
         
 </body>
 <script>    
     
-            var map_ea4cffe59a764fe49885d376f6cec753 = L.map(
-                "map_ea4cffe59a764fe49885d376f6cec753",
+            var map_96f893043c9a4e44ae7fed6498721f07 = L.map(
+                "map_96f893043c9a4e44ae7fed6498721f07",
                 {
-                    center: [42.346205, -71.084125],
+                    center: [42.3137, -71.09943500000001],
                     crs: L.CRS.EPSG3857,
                     zoom: 18,
                     zoomControl: true,
@@ -737,35 +1118,36 @@
 
         
     
-            var tile_layer_5cae6fd6668d40c7b672ba36cc7ab1f0 = L.tileLayer(
+            var tile_layer_dca71f2f4fc14b9aa0d115ad7242aa5e = L.tileLayer(
                 "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
                 {"attribution": "\u0026copy; \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"http://cartodb.com/attributions\"\u003eCartoDB\u003c/a\u003e, CartoDB \u003ca href =\"http://cartodb.com/attributions\"\u003eattributions\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            ).addTo(map_ea4cffe59a764fe49885d376f6cec753);
+            ).addTo(map_96f893043c9a4e44ae7fed6498721f07);
         
     
-            var feature_group_034b5d9c23fb42be96c4ae6d4b59eb18 = L.featureGroup(
+            var feature_group_e2b2311e95a941e3beafe8650b5e27bf = L.featureGroup(
                 {}
-            ).addTo(map_ea4cffe59a764fe49885d376f6cec753);
+            ).addTo(map_96f893043c9a4e44ae7fed6498721f07);
         
     
-            var circle_4d88103f97d745618c0ea82f7636dfd3 = L.circle(
-                [42.346205, -71.084125],
-                {"bubblingMouseEvents": true, "color": "#448AFF", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.4, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.7, "radius": 80.0, "stroke": true, "weight": 2}
-            ).addTo(map_ea4cffe59a764fe49885d376f6cec753);
+            var circle_f19c68b192d1460b8064bb8f0a2aa07f = L.circle(
+                [42.31373, -71.09938333333334],
+                {"bubblingMouseEvents": true, "color": "#448AFF", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.4225426695675198, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.7225426695675198, "radius": 80.0, "stroke": true, "weight": 2}
+            ).addTo(map_96f893043c9a4e44ae7fed6498721f07);
         
     
-            circle_4d88103f97d745618c0ea82f7636dfd3.bindTooltip(
+            circle_f19c68b192d1460b8064bb8f0a2aa07f.bindTooltip(
                 `<div>
                      
         <p style='font-size:1.25em; margin:0; color:#448AFF'>
         Cluster <b>29-2
         </b></p>
-        <p style='font-size:1.0em; margin: 0 0 1px; color:#FF9800'><span style='color:black!important;font-size:.9em'>
+        <p style='font-size:1.0em; margin: 0 0 1px; color:#FF9800'><span style='color:#448AFF!important;font-size:.92em'>
+            <i class="fa fa-square-o"></i> No change detected (since Jul. 2020)</span> <br> <span style='color:black!important;font-size:.95em'>
                 <b>Listings license status:</b></span><br>
             <i class="fa fa-ban"></i> No license claimed </p>
-        Host: <b>Kat </b> | Listings: <b>2</b>
+        Host: <b>Belkis </b> | Listings: <b>3</b>
         <br>Minimum  stay:  <b style='color:black'>
-            91 nights </b>  
+            29 nights </b>  
         
         
                  </div>`,
@@ -773,24 +1155,25 @@
             );
         
     
-            var circle_a7c30c873f5e4c739086a1cf5b2ed249 = L.circle(
-                [42.346205, -71.084125],
+            var circle_33ea0f0e76ca4276a6c1e0995238a102 = L.circle(
+                [42.31373, -71.09938333333334],
                 {"bubblingMouseEvents": true, "color": "#448AFF", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#448AFF", "fillOpacity": 1, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.7, "radius": 6, "stroke": true, "weight": 4}
-            ).addTo(map_ea4cffe59a764fe49885d376f6cec753);
+            ).addTo(map_96f893043c9a4e44ae7fed6498721f07);
         
     
-            circle_a7c30c873f5e4c739086a1cf5b2ed249.bindTooltip(
+            circle_33ea0f0e76ca4276a6c1e0995238a102.bindTooltip(
                 `<div>
                      
         <p style='font-size:1.25em; margin:0; color:#448AFF'>
         Cluster <b>29-2
         </b></p>
-        <p style='font-size:1.0em; margin: 0 0 1px; color:#FF9800'><span style='color:black!important;font-size:.9em'>
+        <p style='font-size:1.0em; margin: 0 0 1px; color:#FF9800'><span style='color:#448AFF!important;font-size:.92em'>
+            <i class="fa fa-square-o"></i> No change detected (since Jul. 2020)</span> <br> <span style='color:black!important;font-size:.95em'>
                 <b>Listings license status:</b></span><br>
             <i class="fa fa-ban"></i> No license claimed </p>
-        Host: <b>Kat </b> | Listings: <b>2</b>
+        Host: <b>Belkis </b> | Listings: <b>3</b>
         <br>Minimum  stay:  <b style='color:black'>
-            91 nights </b>  
+            29 nights </b>  
         
         
                  </div>`,
@@ -798,37 +1181,37 @@
             );
         
     
-            var feature_group_f01a250c62504f53a673701949cf177e = L.featureGroup(
+            var feature_group_f1ec3d54c3b74142a271386edbfa60f3 = L.featureGroup(
                 {}
-            ).addTo(map_ea4cffe59a764fe49885d376f6cec753);
+            ).addTo(map_96f893043c9a4e44ae7fed6498721f07);
         
     
-            var circle_e3186a6757ed4f28816439965b3d8a06 = L.circle(
-                [42.3461, -71.08447],
+            var circle_02e27515634d4b3e9e37e0789d52a031 = L.circle(
+                [42.3135, -71.09928000000002],
                 {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_f01a250c62504f53a673701949cf177e);
+            ).addTo(feature_group_f1ec3d54c3b74142a271386edbfa60f3);
         
     
-        var popup_3c17f04d53d84a87ac77033266e98691 = L.popup({"maxWidth": "100%"});
+        var popup_714044b11cc7407db81ece94abff36a5 = L.popup({"maxWidth": "100%"});
 
         
-            var html_18156389d8444be7b572bbcdc39ce2ee = $(`<div id="html_18156389d8444be7b572bbcdc39ce2ee" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/29-2.html'>                                 <b>Cluster 29-2</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_3c17f04d53d84a87ac77033266e98691.setContent(html_18156389d8444be7b572bbcdc39ce2ee);
+            var html_ee179e986e47414f8fcf411f25ea959b = $(`<div id="html_ee179e986e47414f8fcf411f25ea959b" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/29-2.html'>                                 <b>Cluster 29-2</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
+            popup_714044b11cc7407db81ece94abff36a5.setContent(html_ee179e986e47414f8fcf411f25ea959b);
         
 
-        circle_e3186a6757ed4f28816439965b3d8a06.bindPopup(popup_3c17f04d53d84a87ac77033266e98691)
+        circle_02e27515634d4b3e9e37e0789d52a031.bindPopup(popup_714044b11cc7407db81ece94abff36a5)
         ;
 
         
     
     
-            circle_e3186a6757ed4f28816439965b3d8a06.bindTooltip(
+            circle_02e27515634d4b3e9e37e0789d52a031.bindTooltip(
                 `<div>
                      
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>23015741</b></p>
+        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>27920247</b></p>
         Cluster: <span style='color:#448AFF'><b>29-2</b></span> | 
         
-        Host: <span style='color:#665c2c'><b>Kat </b></span>
+        Host: <span style='color:#665c2c'><b>Belkis </b></span>
         
         <br>License:
                  <i style='font-size:.9em; color:#FF9800';
@@ -842,32 +1225,32 @@
             );
         
     
-            var circle_1d38c8b2b1b64170b80f275897da9843 = L.circle(
-                [42.34631, -71.08378],
+            var circle_2527e9d5129148c2a3bbcc58a02cff47 = L.circle(
+                [42.3139, -71.09963],
                 {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_f01a250c62504f53a673701949cf177e);
+            ).addTo(feature_group_f1ec3d54c3b74142a271386edbfa60f3);
         
     
-        var popup_e3d8b7e1462945a5910d179b60bf195c = L.popup({"maxWidth": "100%"});
+        var popup_8c9625a5781542fd8a6a511cd4937713 = L.popup({"maxWidth": "100%"});
 
         
-            var html_dc3c23f378bd4590806637f770bea21a = $(`<div id="html_dc3c23f378bd4590806637f770bea21a" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/29-2.html'>                                 <b>Cluster 29-2</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_e3d8b7e1462945a5910d179b60bf195c.setContent(html_dc3c23f378bd4590806637f770bea21a);
+            var html_c00104b8fe114fb8a51963be83b53d32 = $(`<div id="html_c00104b8fe114fb8a51963be83b53d32" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/29-2.html'>                                 <b>Cluster 29-2</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
+            popup_8c9625a5781542fd8a6a511cd4937713.setContent(html_c00104b8fe114fb8a51963be83b53d32);
         
 
-        circle_1d38c8b2b1b64170b80f275897da9843.bindPopup(popup_e3d8b7e1462945a5910d179b60bf195c)
+        circle_2527e9d5129148c2a3bbcc58a02cff47.bindPopup(popup_8c9625a5781542fd8a6a511cd4937713)
         ;
 
         
     
     
-            circle_1d38c8b2b1b64170b80f275897da9843.bindTooltip(
+            circle_2527e9d5129148c2a3bbcc58a02cff47.bindTooltip(
                 `<div>
                      
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>33345730</b></p>
+        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>27922387</b></p>
         Cluster: <span style='color:#448AFF'><b>29-2</b></span> | 
         
-        Host: <span style='color:#665c2c'><b>Kat </b></span>
+        Host: <span style='color:#665c2c'><b>Belkis </b></span>
         
         <br>License:
                  <i style='font-size:.9em; color:#FF9800';
@@ -881,19 +1264,58 @@
             );
         
     
-            var layer_control_68dc5beee0fe4c528f40dc900cc032dc = {
+            var circle_87c963c851204d99bfb69eb0e105d822 = L.circle(
+                [42.31379, -71.09924000000002],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
+            ).addTo(feature_group_f1ec3d54c3b74142a271386edbfa60f3);
+        
+    
+        var popup_e125c204df9e47f485b611076f601473 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_a38b05037fab4d7a9767c82dad20bdae = $(`<div id="html_a38b05037fab4d7a9767c82dad20bdae" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/29-2.html'>                                 <b>Cluster 29-2</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
+            popup_e125c204df9e47f485b611076f601473.setContent(html_a38b05037fab4d7a9767c82dad20bdae);
+        
+
+        circle_87c963c851204d99bfb69eb0e105d822.bindPopup(popup_e125c204df9e47f485b611076f601473)
+        ;
+
+        
+    
+    
+            circle_87c963c851204d99bfb69eb0e105d822.bindTooltip(
+                `<div>
+                     
+        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>37931130</b></p>
+        Cluster: <span style='color:#448AFF'><b>29-2</b></span> | 
+        
+        Host: <span style='color:#665c2c'><b>Belkis </b></span>
+        
+        <br>License:
+                 <i style='font-size:.9em; color:#FF9800';
+                       class='fa fa-file-text'></i>
+                <b> Missing</b>
+        <br>License: <span style='color:#FF9800'> <b>No license claimed</b> </span>
+        
+                    <br><b style='color:#448AFF'>Click or see cluster for more details</b></span>
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var layer_control_a15d28aa47d94c39b35058d870393e6f = {
                 base_layers : {
                 },
                 overlays :  {
-                    "\u003cspan style=\u0027font-size:15px\u0027\u003e\n                        Known STR buildings near large clusters\n                        \u003ci class=\u0027fa fa-building\u0027\n                           style=\u0027color:#5E35B1; margin: 0 3px;\u0027\u003e\u003c/i\u003e\n                        \u003c/span\u003e" : feature_group_034b5d9c23fb42be96c4ae6d4b59eb18,
-                    "\u003cspan style=\u0027font-size:15px\u0027\u003e\n                        Include individual listings on map\n                        \u003ci class=\u0027fa fa-dot-circle-o\u0027\n                           style=\u0027color:red; margin: 0 3px;\u0027\u003e\u003c/i\u003e\n                    \u003c/span\u003e" : feature_group_f01a250c62504f53a673701949cf177e,
+                    "\u003cspan style=\u0027font-size:15px\u0027\u003e\n                        Known STR buildings near large clusters\n                        \u003ci class=\u0027fa fa-building\u0027\n                           style=\u0027color:#5E35B1; margin: 0 3px;\u0027\u003e\u003c/i\u003e\n                        \u003c/span\u003e" : feature_group_e2b2311e95a941e3beafe8650b5e27bf,
+                    "\u003cspan style=\u0027font-size:15px\u0027\u003e\n                        Include individual listings on map\n                        \u003ci class=\u0027fa fa-dot-circle-o\u0027\n                           style=\u0027color:red; margin: 0 3px;\u0027\u003e\u003c/i\u003e\n                    \u003c/span\u003e" : feature_group_f1ec3d54c3b74142a271386edbfa60f3,
                 },
             };
             L.control.layers(
-                layer_control_68dc5beee0fe4c528f40dc900cc032dc.base_layers,
-                layer_control_68dc5beee0fe4c528f40dc900cc032dc.overlays,
+                layer_control_a15d28aa47d94c39b35058d870393e6f.base_layers,
+                layer_control_a15d28aa47d94c39b35058d870393e6f.overlays,
                 {"autoZIndex": true, "collapsed": false, "position": "topright"}
-            ).addTo(map_ea4cffe59a764fe49885d376f6cec753);
+            ).addTo(map_96f893043c9a4e44ae7fed6498721f07);
         
 </script>
             </div>
@@ -913,6 +1335,93 @@
               this.innerHTML = "[ &ndash; ] Learn less... ";
             } 
         });
+    </script>
+    <script>
+    
+        var modal = document.getElementById("myModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on the button, open the modal
+        btn.onclick = function() {
+          modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+          modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        }
+
+    </script>
+    <script>
+    
+    
+        document.getElementById("mobile-switcher"
+            ).addEventListener("click", switch_mobile_menu);
+        document.getElementById("mobile-switch-link"
+            ).addEventListener("click", switch_mobile_menu);
+        document.getElementById("mobile-menu-circle"
+            ).addEventListener("click", switch_mobile_menu);
+            
+        var mapOpen = false
+        function switch_mobile_menu() {
+
+            var navbar = document.getElementById("nav-banner");
+            var sidebar = document.getElementById("sidebar-container");
+            var map = document.getElementById("map-container");
+            var slabel = document.getElementById("mobile-switch-label");
+            var openico = document.getElementById("open-menu-icon");
+            var slink = document.getElementById("mobile-switch-link");
+            var menucir = document.getElementById("mobile-menu-circle");
+
+
+            if ( mapOpen ){
+                  sidebar.setAttribute("style","left:0") ;
+
+                  map.setAttribute("style","left:calc(100vw - 100px)") ;
+                  map.setAttribute("style","width:800px") ;
+
+                  slabel.innerHTML = "<b>Map </b> <i class='fa fa-map' aria-hidden='true'></i>";
+                  
+                  openico.setAttribute("style","visibility:hidden") ;
+                  menucir.setAttribute("style","left:-100px") ;
+                  
+                  slink.setAttribute("style","right:0") ;
+                  slink.setAttribute("style","width:30px") ;
+                  
+
+                  mapOpen = false;
+            }
+            else {
+                  sidebar.setAttribute("style","left:calc(-100vw + 40px)") ; 
+
+                  map.setAttribute("style","left:10px !important") ;
+                  map.setAttribute("style","width:calc(100vw - 10px) !important") ;
+
+                  slabel.innerHTML = "<b>Details </b> <i class='fa fa-bars' aria-hidden='true'></i>";
+                  
+                  openico.setAttribute("style","visibility:visible") ;
+                  menucir.setAttribute("style","left:-30px") ;
+
+                  slink.setAttribute("style","width:20px") ;
+                  slink.setAttribute("style","left:0px") ;
+
+                  mapOpen = true;
+            } 
+        };
+
+    
     </script>
     <script>
     

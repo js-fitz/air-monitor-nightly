@@ -76,18 +76,6 @@
         display: none !important
     }
     
-    
-        .leaflet-pane .leaflet-interactive {
-            transition: fill-opacity .1s ease-in-out;
-            transition: stroke .1s ease-in-out;
-
-        }
-
-        .leaflet-pane .leaflet-interactive:hover {
-            fill-opacity:.8 !important;
-            stroke:white !important;
-        }
-        
     .centroid-link-btn {
         color:white !important;
         font-size:18px;
@@ -172,15 +160,17 @@
         box-sizing: border-box;
     }
 
-    .sidebar-container {
+    #sidebar-container {
         position:fixed;
         display: block;
         height: 100vh;
         width:400px;
         overflow:auto;
+        transition:.2s;
+        z-index: 9999;
     }
 
-    .nav-banner {
+    #nav-banner {
         position:fixed;
         top:0;
         left:0;
@@ -189,15 +179,10 @@
         width:400px;
         background-color:#191919;
         overflow:auto;
-    }
-    
-    .nav-banner p {
-        margin:4px 8px;
-        width:max-content;
-        padding
+        z-index: 10000;
     }
 
-    .sidebar {
+    #sidebar {
         width:400px;
         top: 25px;
         position:fixed;
@@ -208,7 +193,117 @@
         box-sizing: border-box;
         overflow-y: auto;
         padding:30px;
-        box-shadow: inset 0 0 15px rgba(0,0,0,0.4);
+        transition:.15s;
+    }
+    
+    #open-menu-icon {
+        visibility:hidden;
+        display:block;
+        position:fixed;
+        left:0;
+        top:48vh;
+        color:white;
+        padding:10px;
+        font-size: 1.5em;
+    }
+    
+    
+    #mobile-switcher {
+        visibility:hidden;
+        position: absolute;
+        right: 0;
+        top: 0;
+        display:inline-block;
+        padding: 5px;
+        background-color: #191919;
+        margin:0;
+        pointer:cursor;
+    }
+    
+
+    # mobile-switch-label {
+        margin: 2px 0 0;
+    }
+    
+    #mobile-switch-link {
+        display:block;
+        position:fixed;
+        top:40px;
+        right:0;
+        width:30px;
+        height: calc(100vh - 40px);
+        z-index:99999;
+        visibility:hidden;
+        pointer:cursor;
+    }
+    
+    @media screen and (max-width: 850px){
+    
+        #mobile-switcher {
+            visibility: visible;
+        }
+        #mobile-switch-link {
+            visibility: visible;
+        }
+        #nav-banner {
+            width: 100vw;
+            padding:5px;
+        }
+        #sidebar-container {
+            width:calc(100vw - 30px);
+        }
+        #sidebar-container {
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        }
+        #sidebar {
+            width:calc(100vw - 30px);
+        }
+
+        #map-container, iframe {
+            top:40px !important;
+            height:calc(100vh - 40px)  !important;
+            z-index: 9995;
+            width:calc(100vw - 30px) !important;
+        }       
+    }
+    
+    
+    @media screen and (max-width: 720px){
+
+        .leaflet-control-layers {
+            display:none;
+        }
+    
+    }
+    
+    #mobile-menu-circle {
+      height: 65px;
+      width: 65px;
+      background-color: #2b2b2b;
+      border-radius: 50%;
+      display: inline-block;
+      position: fixed;
+      text-align: right;
+      left: -100px;
+      padding: 15px 3px;
+      transition:.2s
+    }
+    
+    .mobile-menu-circle i {
+        display: table-cell;
+        width: 65px;
+        height: 65px;
+        padding: 5px;
+        border: none;
+        vertical-align: middle;
+        
+    }
+    
+    
+    #nav-banner p {
+        margin:4px 8px;
+        width:max-content;
+        padding
     }
 
     .listings-status-legend {
@@ -220,6 +315,12 @@
     }
     .listings-status-legend td {
         padding: 10px 5px 0;
+    }
+    
+    .listings-status-legend th {
+        font-size:1.2em;
+        padding: 10px 5px 0;
+        color: white !important
     }
 
     #status-icon {
@@ -237,7 +338,8 @@
         right:0;
         display: block;
         height:100vh;
-        width: calc(100% - 400px)
+        width: calc(100% - 400px);
+        transition:.15s;
     }
 
     iframe {
@@ -501,7 +603,77 @@
       color: white; 
       font-weight: bold; 
     }
+    
+    
+    
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 10000; /* Sit on top */
+      left: 0;
+      top: 0;
+      width: 100vw; /* Full width */
+      height: 100vh; /* Full height */
+      padding:40px;
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+    }
 
+    /* Modal Content/Box */
+    .modal-content {
+      background-color: #2b2b2b !important;
+      z-index: 10000; /* Sit on top */
+      padding: 0;
+      height: calc(100vh - 80px);
+      width: calc(100vw - 80px);
+    }
+    .modal-inner {
+      padding: 40px;
+      box-shadow: inset -12px -12px 10px rgba(0,0,0,0.25);
+      z-index: 100001; /* Sit on top */
+      overflow:auto;
+      width: 100%;
+      height: 100%;
+      background-color:#2b2b2b !important;
+    }
+
+    /* The Close Button */
+    .close {
+      position:fixed;
+      color: white !important;
+      float: right;
+      font-size: 30px;
+      font-weight: bold;
+      opacity: 1 !important;
+      margin-top: -15px;
+      
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .dataframe {
+        border-color: #d4d4d4;
+    }
+
+    .dataframe td {
+        white-space: pre;
+        max-width:120px;
+        padding: 3px;
+        overflow:auto;
+        color:white !important;
+    }
+
+    .dataframe th {
+        max-width:120px;
+        padding: 3px;
+        color:white !important;
+    }
 
     </style>
 
@@ -509,46 +681,982 @@
     <body>
 
         <div id='page-container'>
-            <div class='sidebar-container'>
+            <div id='sidebar-container'>
                     
-                    <div class='nav-banner'>
+                    <div id='nav-banner'>
                         <p>
                             <a href='/'>Home</a> &#62;
                             <a href='/clusters.html'>Clusters</a> &#62;
                             <span style='color:#448AFF'>1-4</span>
                             <a href='/host/CorpGroup1.html' style='color:#9C9C9C'>(PCHNortheast)</a>
                         </p>
+                        
+                        
+                        <div id='mobile-switch-link'></div>
+                        <div id='mobile-switcher'>
+                            <p id='mobile-switch-label'>
+                            <b>Map </b><i class="fa fa-map" aria-hidden="true"></i> 
+                            </p>
+                        </div>
+                        
+                        <div id='open-menu-icon'>
+                            <span id="mobile-menu-circle">
+                                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        
                     </div>
                     
-                <div class='sidebar'>
+                <div id='sidebar'>
                     
         <h2 style='font-size:2.2em; margin:0 0 10px'> Cluster 1-4 </h2>
 
         <h3 style='margin-bottom:5px'>
-            <a href='#listings'><b>37 listings</b></a> |
+            <a href='#listings'><b>25 listings</b></a> |
             1 account</b> 
         </h3> 
         
         <p class='text-lite'>
-            <b>157</b> total accommodations
+            <b>91</b> total accommodations
         </p> 
         <hr class='hr-lite'>
         <h3 style='font-size: 1.6em; margin:15px 0 5px'>
         Host: <a href='/host/CorpGroup1.html' class='host-info-link'> PCHNortheast</a> </h3>
         
         <p style='margin-top:10px; margin-bottom:8px'>At or near:</p>
-        
-        <p class='text-lite' style='color:white!important;font-size:14px'>
-        <b style='color:#448AFF'>Multiple sub-clusters detected - </b>
-        choose a sub-cluster (in blue) from the map for details</p>
-        <p style='font-size:1.25em; margin-bottom:5px'><b>2 Hancock Street</b></p>
+        <p style='font-size:1.25em; margin-bottom:5px'><b>101 South Huntington Avenue, Roxbury</b></p>
         <p class='text-lite' style='font-size:.95em; margin:0'>
                         <b>Source:</b>
     
                         Inferred centerpoint of cluster listings</p>
                     <p style='font-size:.98em'>
-                        Estimated accuracy: <b style='color:#448AFF'>unknown (too close)</b></p>
+                        Estimated accuracy: <b style='color:#448AFF'>within 350 ft.</b></p>
                 
+    
+        
+    
+    <button id="myBtn" style='margin-top:5px'>Detailed listings data
+        <i class="fa fa-external-link-square" aria-hidden="true"></i>
+    </button>
+
+    <div id="myModal" class="modal">
+
+      <!-- Modal content -->
+      <div class="modal-content">
+      <div class="modal-inner">
+        <span class="close">&times;</span>
+        
+        
+        <h2 style='margin-top:15px;'>
+            Cluster: <b>1-4</b>
+        <h2>
+        <h3>
+        <span> 25 total listings </span> | 
+        
+        <a href='/cluster/1-4—data.csv' download="cluster-1-4_listings.csv">
+                            <i class="fa fa-download" aria-hidden="true"></i>
+                            Download data as a CSV </a>
+        </h3>
+        <p>
+        <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Id</th>
+      <th>Listing<br>url</th>
+      <th>Cluster</th>
+      <th>Name</th>
+      <th>Host id</th>
+      <th>Host url</th>
+      <th>Host</th>
+      <th>Neighbourhood<br>cleansed</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Property<br>type</th>
+      <th>Room type</th>
+      <th>Accommodates</th>
+      <th>Bedrooms</th>
+      <th>Beds</th>
+      <th>Price</th>
+      <th>Minimum<br>minimum<br>nights</th>
+      <th>Availability<br>365</th>
+      <th>Number<br>of<br>reviews</th>
+      <th>License</th>
+      <th>Host alias</th>
+      <th>Alias id</th>
+      <th>Status</th>
+      <th>Isd status</th>
+      <th>Isd<br>address</th>
+      <th>Isd<br>category</th>
+      <th>License<br>listing<br>count</th>
+      <th>License<br>cat<br>max<br>exceed</th>
+      <th>Simple<br>status</th>
+      <th>Full<br>status</th>
+      <th>Centroid<br>group<br>distance</th>
+      <th>Last<br>scraped</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>43846033</td>
+      <td><a href="https://www.airbnb.com/rooms/43846033" target="_blank">https://www.airbnb.com/rooms/43846033</a></td>
+      <td>1-4</td>
+      <td>Clean apartment home | 2BR in Boston</td>
+      <td>CorpGroup1</td>
+      <td><a href="https://www.airbnb.com/users/show/359229620" target="_blank">https://www.airbnb.com/users/show/359229620</a></td>
+      <td>PCHNortheast</td>
+      <td>Jamaica Plain</td>
+      <td>42.32935</td>
+      <td>-71.11149</td>
+      <td>Entire serviced apartment</td>
+      <td>Entire home/apt</td>
+      <td>5</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>222.00</td>
+      <td>91.0</td>
+      <td>360</td>
+      <td>0</td>
+      <td>Missing</td>
+      <td>PCHNortheast</td>
+      <td>359229620.0</td>
+      <td>No license claimed</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>No license claimed</td>
+      <td>No license claimed</td>
+      <td>27.336850</td>
+      <td>2020-08-31</td>
+    </tr>
+    <tr>
+      <td>43846038</td>
+      <td><a href="https://www.airbnb.com/rooms/43846038" target="_blank">https://www.airbnb.com/rooms/43846038</a></td>
+      <td>1-4</td>
+      <td>Clean apartment home | 2BR in Boston</td>
+      <td>CorpGroup1</td>
+      <td><a href="https://www.airbnb.com/users/show/359229620" target="_blank">https://www.airbnb.com/users/show/359229620</a></td>
+      <td>PCHNortheast</td>
+      <td>Jamaica Plain</td>
+      <td>42.32935</td>
+      <td>-71.11149</td>
+      <td>Entire serviced apartment</td>
+      <td>Entire home/apt</td>
+      <td>5</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>227.00</td>
+      <td>91.0</td>
+      <td>360</td>
+      <td>0</td>
+      <td>Missing</td>
+      <td>PCHNortheast</td>
+      <td>359229620.0</td>
+      <td>No license claimed</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>No license claimed</td>
+      <td>No license claimed</td>
+      <td>27.336850</td>
+      <td>2020-08-31</td>
+    </tr>
+    <tr>
+      <td>43846039</td>
+      <td><a href="https://www.airbnb.com/rooms/43846039" target="_blank">https://www.airbnb.com/rooms/43846039</a></td>
+      <td>1-4</td>
+      <td>Clean apartment home | 2BR in Boston</td>
+      <td>CorpGroup1</td>
+      <td><a href="https://www.airbnb.com/users/show/359229620" target="_blank">https://www.airbnb.com/users/show/359229620</a></td>
+      <td>PCHNortheast</td>
+      <td>Jamaica Plain</td>
+      <td>42.32935</td>
+      <td>-71.11149</td>
+      <td>Entire serviced apartment</td>
+      <td>Entire home/apt</td>
+      <td>5</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>204.00</td>
+      <td>91.0</td>
+      <td>360</td>
+      <td>0</td>
+      <td>Missing</td>
+      <td>PCHNortheast</td>
+      <td>359229620.0</td>
+      <td>No license claimed</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>No license claimed</td>
+      <td>No license claimed</td>
+      <td>27.336850</td>
+      <td>2020-08-31</td>
+    </tr>
+    <tr>
+      <td>43846040</td>
+      <td><a href="https://www.airbnb.com/rooms/43846040" target="_blank">https://www.airbnb.com/rooms/43846040</a></td>
+      <td>1-4</td>
+      <td>Clean apartment home | 2BR in Boston</td>
+      <td>CorpGroup1</td>
+      <td><a href="https://www.airbnb.com/users/show/359229620" target="_blank">https://www.airbnb.com/users/show/359229620</a></td>
+      <td>PCHNortheast</td>
+      <td>Jamaica Plain</td>
+      <td>42.32935</td>
+      <td>-71.11149</td>
+      <td>Entire serviced apartment</td>
+      <td>Entire home/apt</td>
+      <td>5</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>227.00</td>
+      <td>91.0</td>
+      <td>360</td>
+      <td>0</td>
+      <td>Missing</td>
+      <td>PCHNortheast</td>
+      <td>359229620.0</td>
+      <td>No license claimed</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>No license claimed</td>
+      <td>No license claimed</td>
+      <td>27.336850</td>
+      <td>2020-08-31</td>
+    </tr>
+    <tr>
+      <td>43846041</td>
+      <td><a href="https://www.airbnb.com/rooms/43846041" target="_blank">https://www.airbnb.com/rooms/43846041</a></td>
+      <td>1-4</td>
+      <td>Clean apartment home | 2BR in Boston</td>
+      <td>CorpGroup1</td>
+      <td><a href="https://www.airbnb.com/users/show/359229620" target="_blank">https://www.airbnb.com/users/show/359229620</a></td>
+      <td>PCHNortheast</td>
+      <td>Jamaica Plain</td>
+      <td>42.32935</td>
+      <td>-71.11149</td>
+      <td>Entire serviced apartment</td>
+      <td>Entire home/apt</td>
+      <td>5</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>198.00</td>
+      <td>91.0</td>
+      <td>360</td>
+      <td>0</td>
+      <td>Missing</td>
+      <td>PCHNortheast</td>
+      <td>359229620.0</td>
+      <td>No license claimed</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>No license claimed</td>
+      <td>No license claimed</td>
+      <td>27.336850</td>
+      <td>2020-08-31</td>
+    </tr>
+    <tr>
+      <td>43846043</td>
+      <td><a href="https://www.airbnb.com/rooms/43846043" target="_blank">https://www.airbnb.com/rooms/43846043</a></td>
+      <td>1-4</td>
+      <td>Clean apartment home | 2BR in Boston</td>
+      <td>CorpGroup1</td>
+      <td><a href="https://www.airbnb.com/users/show/359229620" target="_blank">https://www.airbnb.com/users/show/359229620</a></td>
+      <td>PCHNortheast</td>
+      <td>Jamaica Plain</td>
+      <td>42.32935</td>
+      <td>-71.11149</td>
+      <td>Entire serviced apartment</td>
+      <td>Entire home/apt</td>
+      <td>5</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>227.00</td>
+      <td>91.0</td>
+      <td>360</td>
+      <td>0</td>
+      <td>Missing</td>
+      <td>PCHNortheast</td>
+      <td>359229620.0</td>
+      <td>No license claimed</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>No license claimed</td>
+      <td>No license claimed</td>
+      <td>27.336850</td>
+      <td>2020-08-31</td>
+    </tr>
+    <tr>
+      <td>43846045</td>
+      <td><a href="https://www.airbnb.com/rooms/43846045" target="_blank">https://www.airbnb.com/rooms/43846045</a></td>
+      <td>1-4</td>
+      <td>Clean apartment home | 2BR in Boston</td>
+      <td>CorpGroup1</td>
+      <td><a href="https://www.airbnb.com/users/show/359229620" target="_blank">https://www.airbnb.com/users/show/359229620</a></td>
+      <td>PCHNortheast</td>
+      <td>Jamaica Plain</td>
+      <td>42.32935</td>
+      <td>-71.11149</td>
+      <td>Entire serviced apartment</td>
+      <td>Entire home/apt</td>
+      <td>5</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>211.78</td>
+      <td>91.0</td>
+      <td>360</td>
+      <td>0</td>
+      <td>Missing</td>
+      <td>PCHNortheast</td>
+      <td>359229620.0</td>
+      <td>No license claimed</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>No license claimed</td>
+      <td>No license claimed</td>
+      <td>27.336850</td>
+      <td>2020-08-31</td>
+    </tr>
+    <tr>
+      <td>43846055</td>
+      <td><a href="https://www.airbnb.com/rooms/43846055" target="_blank">https://www.airbnb.com/rooms/43846055</a></td>
+      <td>1-4</td>
+      <td>Clean apartment home | 1BR in Boston</td>
+      <td>CorpGroup1</td>
+      <td><a href="https://www.airbnb.com/users/show/359229620" target="_blank">https://www.airbnb.com/users/show/359229620</a></td>
+      <td>PCHNortheast</td>
+      <td>Jamaica Plain</td>
+      <td>42.32935</td>
+      <td>-71.11149</td>
+      <td>Entire serviced apartment</td>
+      <td>Entire home/apt</td>
+      <td>3</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>185.95</td>
+      <td>91.0</td>
+      <td>360</td>
+      <td>0</td>
+      <td>Missing</td>
+      <td>PCHNortheast</td>
+      <td>359229620.0</td>
+      <td>No license claimed</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>No license claimed</td>
+      <td>No license claimed</td>
+      <td>27.336850</td>
+      <td>2020-08-31</td>
+    </tr>
+    <tr>
+      <td>44618555</td>
+      <td><a href="https://www.airbnb.com/rooms/44618555" target="_blank">https://www.airbnb.com/rooms/44618555</a></td>
+      <td>1-4</td>
+      <td>Clean apartment home | 1BR in Boston</td>
+      <td>CorpGroup1</td>
+      <td><a href="https://www.airbnb.com/users/show/359229620" target="_blank">https://www.airbnb.com/users/show/359229620</a></td>
+      <td>PCHNortheast</td>
+      <td>Jamaica Plain</td>
+      <td>42.32935</td>
+      <td>-71.11149</td>
+      <td>Entire serviced apartment</td>
+      <td>Entire home/apt</td>
+      <td>3</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>165.00</td>
+      <td>91.0</td>
+      <td>354</td>
+      <td>0</td>
+      <td>Missing</td>
+      <td>PCHNortheast</td>
+      <td>359229620.0</td>
+      <td>No license claimed</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>No license claimed</td>
+      <td>No license claimed</td>
+      <td>27.336850</td>
+      <td>2020-08-31</td>
+    </tr>
+    <tr>
+      <td>44618559</td>
+      <td><a href="https://www.airbnb.com/rooms/44618559" target="_blank">https://www.airbnb.com/rooms/44618559</a></td>
+      <td>1-4</td>
+      <td>Clean apartment home | 1BR in Boston</td>
+      <td>CorpGroup1</td>
+      <td><a href="https://www.airbnb.com/users/show/359229620" target="_blank">https://www.airbnb.com/users/show/359229620</a></td>
+      <td>PCHNortheast</td>
+      <td>Jamaica Plain</td>
+      <td>42.32841</td>
+      <td>-71.11086</td>
+      <td>Entire serviced apartment</td>
+      <td>Entire home/apt</td>
+      <td>3</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>155.00</td>
+      <td>91.0</td>
+      <td>360</td>
+      <td>0</td>
+      <td>Missing</td>
+      <td>PCHNortheast</td>
+      <td>359229620.0</td>
+      <td>No license claimed</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>No license claimed</td>
+      <td>No license claimed</td>
+      <td>355.394250</td>
+      <td>2020-08-31</td>
+    </tr>
+    <tr>
+      <td>44618564</td>
+      <td><a href="https://www.airbnb.com/rooms/44618564" target="_blank">https://www.airbnb.com/rooms/44618564</a></td>
+      <td>1-4</td>
+      <td>Clean apartment home | 2BR in Boston</td>
+      <td>CorpGroup1</td>
+      <td><a href="https://www.airbnb.com/users/show/359229620" target="_blank">https://www.airbnb.com/users/show/359229620</a></td>
+      <td>PCHNortheast</td>
+      <td>Jamaica Plain</td>
+      <td>42.32935</td>
+      <td>-71.11149</td>
+      <td>Entire serviced apartment</td>
+      <td>Entire home/apt</td>
+      <td>5</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>247.00</td>
+      <td>91.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>Missing</td>
+      <td>PCHNortheast</td>
+      <td>359229620.0</td>
+      <td>No license claimed</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>No license claimed</td>
+      <td>No license claimed</td>
+      <td>27.336850</td>
+      <td>2020-09-01</td>
+    </tr>
+    <tr>
+      <td>44618571</td>
+      <td><a href="https://www.airbnb.com/rooms/44618571" target="_blank">https://www.airbnb.com/rooms/44618571</a></td>
+      <td>1-4</td>
+      <td>Clean apartment home | 2BR in Boston</td>
+      <td>CorpGroup1</td>
+      <td><a href="https://www.airbnb.com/users/show/359229620" target="_blank">https://www.airbnb.com/users/show/359229620</a></td>
+      <td>PCHNortheast</td>
+      <td>Jamaica Plain</td>
+      <td>42.32935</td>
+      <td>-71.11149</td>
+      <td>Entire serviced apartment</td>
+      <td>Entire home/apt</td>
+      <td>5</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>213.00</td>
+      <td>91.0</td>
+      <td>357</td>
+      <td>0</td>
+      <td>Missing</td>
+      <td>PCHNortheast</td>
+      <td>359229620.0</td>
+      <td>No license claimed</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>No license claimed</td>
+      <td>No license claimed</td>
+      <td>27.336850</td>
+      <td>2020-08-31</td>
+    </tr>
+    <tr>
+      <td>44618574</td>
+      <td><a href="https://www.airbnb.com/rooms/44618574" target="_blank">https://www.airbnb.com/rooms/44618574</a></td>
+      <td>1-4</td>
+      <td>Clean apartment home | Studio in Boston</td>
+      <td>CorpGroup1</td>
+      <td><a href="https://www.airbnb.com/users/show/359229620" target="_blank">https://www.airbnb.com/users/show/359229620</a></td>
+      <td>PCHNortheast</td>
+      <td>Jamaica Plain</td>
+      <td>42.32935</td>
+      <td>-71.11149</td>
+      <td>Entire serviced apartment</td>
+      <td>Entire home/apt</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>137.00</td>
+      <td>91.0</td>
+      <td>360</td>
+      <td>0</td>
+      <td>Missing</td>
+      <td>PCHNortheast</td>
+      <td>359229620.0</td>
+      <td>No license claimed</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>No license claimed</td>
+      <td>No license claimed</td>
+      <td>27.336850</td>
+      <td>2020-08-31</td>
+    </tr>
+    <tr>
+      <td>44618589</td>
+      <td><a href="https://www.airbnb.com/rooms/44618589" target="_blank">https://www.airbnb.com/rooms/44618589</a></td>
+      <td>1-4</td>
+      <td>Clean apartment home | 1BR in Boston</td>
+      <td>CorpGroup1</td>
+      <td><a href="https://www.airbnb.com/users/show/359229620" target="_blank">https://www.airbnb.com/users/show/359229620</a></td>
+      <td>PCHNortheast</td>
+      <td>Jamaica Plain</td>
+      <td>42.32870</td>
+      <td>-71.11078</td>
+      <td>Entire serviced apartment</td>
+      <td>Entire home/apt</td>
+      <td>3</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>153.00</td>
+      <td>91.0</td>
+      <td>334</td>
+      <td>0</td>
+      <td>Missing</td>
+      <td>PCHNortheast</td>
+      <td>359229620.0</td>
+      <td>No license claimed</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>No license claimed</td>
+      <td>No license claimed</td>
+      <td>277.805866</td>
+      <td>2020-08-31</td>
+    </tr>
+    <tr>
+      <td>44618598</td>
+      <td><a href="https://www.airbnb.com/rooms/44618598" target="_blank">https://www.airbnb.com/rooms/44618598</a></td>
+      <td>1-4</td>
+      <td>Clean apartment home | 2BR in Boston</td>
+      <td>CorpGroup1</td>
+      <td><a href="https://www.airbnb.com/users/show/359229620" target="_blank">https://www.airbnb.com/users/show/359229620</a></td>
+      <td>PCHNortheast</td>
+      <td>Jamaica Plain</td>
+      <td>42.32935</td>
+      <td>-71.11149</td>
+      <td>Entire serviced apartment</td>
+      <td>Entire home/apt</td>
+      <td>5</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>225.00</td>
+      <td>91.0</td>
+      <td>319</td>
+      <td>0</td>
+      <td>Missing</td>
+      <td>PCHNortheast</td>
+      <td>359229620.0</td>
+      <td>No license claimed</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>No license claimed</td>
+      <td>No license claimed</td>
+      <td>27.336850</td>
+      <td>2020-08-31</td>
+    </tr>
+    <tr>
+      <td>44618600</td>
+      <td><a href="https://www.airbnb.com/rooms/44618600" target="_blank">https://www.airbnb.com/rooms/44618600</a></td>
+      <td>1-4</td>
+      <td>Clean apartment home | 1BR in Boston</td>
+      <td>CorpGroup1</td>
+      <td><a href="https://www.airbnb.com/users/show/359229620" target="_blank">https://www.airbnb.com/users/show/359229620</a></td>
+      <td>PCHNortheast</td>
+      <td>Jamaica Plain</td>
+      <td>42.32935</td>
+      <td>-71.11149</td>
+      <td>Entire serviced apartment</td>
+      <td>Entire home/apt</td>
+      <td>3</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>169.00</td>
+      <td>91.0</td>
+      <td>351</td>
+      <td>0</td>
+      <td>Missing</td>
+      <td>PCHNortheast</td>
+      <td>359229620.0</td>
+      <td>No license claimed</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>No license claimed</td>
+      <td>No license claimed</td>
+      <td>27.336850</td>
+      <td>2020-08-31</td>
+    </tr>
+    <tr>
+      <td>44618601</td>
+      <td><a href="https://www.airbnb.com/rooms/44618601" target="_blank">https://www.airbnb.com/rooms/44618601</a></td>
+      <td>1-4</td>
+      <td>Clean apartment home | 1BR in Boston</td>
+      <td>CorpGroup1</td>
+      <td><a href="https://www.airbnb.com/users/show/359229620" target="_blank">https://www.airbnb.com/users/show/359229620</a></td>
+      <td>PCHNortheast</td>
+      <td>Jamaica Plain</td>
+      <td>42.32935</td>
+      <td>-71.11149</td>
+      <td>Entire serviced apartment</td>
+      <td>Entire home/apt</td>
+      <td>3</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>158.00</td>
+      <td>91.0</td>
+      <td>305</td>
+      <td>0</td>
+      <td>Missing</td>
+      <td>PCHNortheast</td>
+      <td>359229620.0</td>
+      <td>No license claimed</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>No license claimed</td>
+      <td>No license claimed</td>
+      <td>27.336850</td>
+      <td>2020-08-31</td>
+    </tr>
+    <tr>
+      <td>45122667</td>
+      <td><a href="https://www.airbnb.com/rooms/45122667" target="_blank">https://www.airbnb.com/rooms/45122667</a></td>
+      <td>1-4</td>
+      <td>Clean apartment home | 2BR in Boston</td>
+      <td>CorpGroup1</td>
+      <td><a href="https://www.airbnb.com/users/show/359229620" target="_blank">https://www.airbnb.com/users/show/359229620</a></td>
+      <td>PCHNortheast</td>
+      <td>Jamaica Plain</td>
+      <td>42.32935</td>
+      <td>-71.11149</td>
+      <td>Entire serviced apartment</td>
+      <td>Entire home/apt</td>
+      <td>5</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>209.64</td>
+      <td>91.0</td>
+      <td>302</td>
+      <td>0</td>
+      <td>Missing</td>
+      <td>PCHNortheast</td>
+      <td>359229620.0</td>
+      <td>No license claimed</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>No license claimed</td>
+      <td>No license claimed</td>
+      <td>27.336850</td>
+      <td>2020-08-31</td>
+    </tr>
+    <tr>
+      <td>45122669</td>
+      <td><a href="https://www.airbnb.com/rooms/45122669" target="_blank">https://www.airbnb.com/rooms/45122669</a></td>
+      <td>1-4</td>
+      <td>Clean apartment home | Studio in Boston</td>
+      <td>CorpGroup1</td>
+      <td><a href="https://www.airbnb.com/users/show/359229620" target="_blank">https://www.airbnb.com/users/show/359229620</a></td>
+      <td>PCHNortheast</td>
+      <td>Jamaica Plain</td>
+      <td>42.32935</td>
+      <td>-71.11149</td>
+      <td>Entire serviced apartment</td>
+      <td>Entire home/apt</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>161.00</td>
+      <td>91.0</td>
+      <td>360</td>
+      <td>0</td>
+      <td>Missing</td>
+      <td>PCHNortheast</td>
+      <td>359229620.0</td>
+      <td>No license claimed</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>No license claimed</td>
+      <td>No license claimed</td>
+      <td>27.336850</td>
+      <td>2020-08-31</td>
+    </tr>
+    <tr>
+      <td>45122684</td>
+      <td><a href="https://www.airbnb.com/rooms/45122684" target="_blank">https://www.airbnb.com/rooms/45122684</a></td>
+      <td>1-4</td>
+      <td>Clean apartment home | Studio in Boston</td>
+      <td>CorpGroup1</td>
+      <td><a href="https://www.airbnb.com/users/show/359229620" target="_blank">https://www.airbnb.com/users/show/359229620</a></td>
+      <td>PCHNortheast</td>
+      <td>Jamaica Plain</td>
+      <td>42.32935</td>
+      <td>-71.11149</td>
+      <td>Entire serviced apartment</td>
+      <td>Entire home/apt</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>152.00</td>
+      <td>91.0</td>
+      <td>303</td>
+      <td>0</td>
+      <td>Missing</td>
+      <td>PCHNortheast</td>
+      <td>359229620.0</td>
+      <td>No license claimed</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>No license claimed</td>
+      <td>No license claimed</td>
+      <td>27.336850</td>
+      <td>2020-08-31</td>
+    </tr>
+    <tr>
+      <td>45122688</td>
+      <td><a href="https://www.airbnb.com/rooms/45122688" target="_blank">https://www.airbnb.com/rooms/45122688</a></td>
+      <td>1-4</td>
+      <td>Clean apartment home | Studio in Boston</td>
+      <td>CorpGroup1</td>
+      <td><a href="https://www.airbnb.com/users/show/359229620" target="_blank">https://www.airbnb.com/users/show/359229620</a></td>
+      <td>PCHNortheast</td>
+      <td>Jamaica Plain</td>
+      <td>42.32935</td>
+      <td>-71.11149</td>
+      <td>Entire serviced apartment</td>
+      <td>Entire home/apt</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>151.00</td>
+      <td>91.0</td>
+      <td>352</td>
+      <td>0</td>
+      <td>Missing</td>
+      <td>PCHNortheast</td>
+      <td>359229620.0</td>
+      <td>No license claimed</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>No license claimed</td>
+      <td>No license claimed</td>
+      <td>27.336850</td>
+      <td>2020-08-31</td>
+    </tr>
+    <tr>
+      <td>45122694</td>
+      <td><a href="https://www.airbnb.com/rooms/45122694" target="_blank">https://www.airbnb.com/rooms/45122694</a></td>
+      <td>1-4</td>
+      <td>Clean apartment home | 2BR in Boston</td>
+      <td>CorpGroup1</td>
+      <td><a href="https://www.airbnb.com/users/show/359229620" target="_blank">https://www.airbnb.com/users/show/359229620</a></td>
+      <td>PCHNortheast</td>
+      <td>Jamaica Plain</td>
+      <td>42.32935</td>
+      <td>-71.11149</td>
+      <td>Entire serviced apartment</td>
+      <td>Entire home/apt</td>
+      <td>5</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>227.00</td>
+      <td>91.0</td>
+      <td>352</td>
+      <td>0</td>
+      <td>Missing</td>
+      <td>PCHNortheast</td>
+      <td>359229620.0</td>
+      <td>No license claimed</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>No license claimed</td>
+      <td>No license claimed</td>
+      <td>27.336850</td>
+      <td>2020-08-31</td>
+    </tr>
+    <tr>
+      <td>45122709</td>
+      <td><a href="https://www.airbnb.com/rooms/45122709" target="_blank">https://www.airbnb.com/rooms/45122709</a></td>
+      <td>1-4</td>
+      <td>Clean apartment home | 1BR in Boston</td>
+      <td>CorpGroup1</td>
+      <td><a href="https://www.airbnb.com/users/show/359229620" target="_blank">https://www.airbnb.com/users/show/359229620</a></td>
+      <td>PCHNortheast</td>
+      <td>Jamaica Plain</td>
+      <td>42.32935</td>
+      <td>-71.11149</td>
+      <td>Entire serviced apartment</td>
+      <td>Entire home/apt</td>
+      <td>3</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>172.00</td>
+      <td>91.0</td>
+      <td>360</td>
+      <td>0</td>
+      <td>Missing</td>
+      <td>PCHNortheast</td>
+      <td>359229620.0</td>
+      <td>No license claimed</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>No license claimed</td>
+      <td>No license claimed</td>
+      <td>27.336850</td>
+      <td>2020-08-31</td>
+    </tr>
+    <tr>
+      <td>45122710</td>
+      <td><a href="https://www.airbnb.com/rooms/45122710" target="_blank">https://www.airbnb.com/rooms/45122710</a></td>
+      <td>1-4</td>
+      <td>Clean apartment home | 1BR in Boston</td>
+      <td>CorpGroup1</td>
+      <td><a href="https://www.airbnb.com/users/show/359229620" target="_blank">https://www.airbnb.com/users/show/359229620</a></td>
+      <td>PCHNortheast</td>
+      <td>Jamaica Plain</td>
+      <td>42.32935</td>
+      <td>-71.11149</td>
+      <td>Entire serviced apartment</td>
+      <td>Entire home/apt</td>
+      <td>3</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>156.00</td>
+      <td>91.0</td>
+      <td>300</td>
+      <td>0</td>
+      <td>Missing</td>
+      <td>PCHNortheast</td>
+      <td>359229620.0</td>
+      <td>No license claimed</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>No license claimed</td>
+      <td>No license claimed</td>
+      <td>27.336850</td>
+      <td>2020-08-31</td>
+    </tr>
+    <tr>
+      <td>45122742</td>
+      <td><a href="https://www.airbnb.com/rooms/45122742" target="_blank">https://www.airbnb.com/rooms/45122742</a></td>
+      <td>1-4</td>
+      <td>Clean apartment home | 1BR in Boston</td>
+      <td>CorpGroup1</td>
+      <td><a href="https://www.airbnb.com/users/show/359229620" target="_blank">https://www.airbnb.com/users/show/359229620</a></td>
+      <td>PCHNortheast</td>
+      <td>Jamaica Plain</td>
+      <td>42.32935</td>
+      <td>-71.11149</td>
+      <td>Entire serviced apartment</td>
+      <td>Entire home/apt</td>
+      <td>3</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>173.00</td>
+      <td>91.0</td>
+      <td>360</td>
+      <td>0</td>
+      <td>Missing</td>
+      <td>PCHNortheast</td>
+      <td>359229620.0</td>
+      <td>No license claimed</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>No license claimed</td>
+      <td>No license claimed</td>
+      <td>27.336850</td>
+      <td>2020-08-31</td>
+    </tr>
+  </tbody>
+</table>
+<p>25 rows × 32 columns</p>
+        </p>  
+      </div>
+      </div>
+
+    </div>
+    
+    
+    
         <hr class='hr-lite'>
         
         <h3 style='margin-bottom:12px'>License Status Details</h3>
@@ -576,7 +1684,7 @@
                                 
                                 <td style='text-align:right'>  
                                     <p>
-                                    37 x</p> 
+                                    25 x</p> 
                                 </td>
                                 
                                 <td>                                      
@@ -602,7 +1710,7 @@
                 <ul>
                     
                     <li>
-                        <p>Missing - <b>No license claimed</b> (37 listings)</b></p>
+                        <p>Missing - <b>No license claimed</b> (25 listings)</b></p>
                     </li>
                 
                 </ul>
@@ -627,630 +1735,426 @@
                         <a href='/cluster/1-4—data.csv' download="cluster-1-4_listings.csv">
                             <i class="fa fa-download" aria-hidden="true"></i>
                             Download cluster data as a CSV </a>
-        <a href='https://www.airbnb.com/rooms/43848799' target='_blank'>
+        <a href='https://www.airbnb.com/rooms/43846033' target='_blank'>
         <div class='centroid-list-item'>
             
-                <p style='font-size:1em'><b>43848799</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 2BR in Quincy</p>
+                <p style='font-size:1em'><b>43846033</b></p>
+                <p style='font-size:1.1em'>Clean apartment home | 2BR in Boston</p>
             
                 <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
+                    <b>91</b></p>
                 <p> <span class='text-lite'>License:</span>
                     <b>Missing</b> (No license claimed)</p>
                     
-                <a href='https://www.airbnb.com/rooms/43848799' target='_blank'>View listing photos &#8594;</a>
+                <a href='https://www.airbnb.com/rooms/43846033' target='_blank'>View listing photos &#8594;</a>
             
         </div>
         </a>
 
         
-        <a href='https://www.airbnb.com/rooms/43848800' target='_blank'>
+        <a href='https://www.airbnb.com/rooms/43846038' target='_blank'>
         <div class='centroid-list-item'>
             
-                <p style='font-size:1em'><b>43848800</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 2BR in Quincy</p>
+                <p style='font-size:1em'><b>43846038</b></p>
+                <p style='font-size:1.1em'>Clean apartment home | 2BR in Boston</p>
             
                 <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
+                    <b>91</b></p>
                 <p> <span class='text-lite'>License:</span>
                     <b>Missing</b> (No license claimed)</p>
                     
-                <a href='https://www.airbnb.com/rooms/43848800' target='_blank'>View listing photos &#8594;</a>
+                <a href='https://www.airbnb.com/rooms/43846038' target='_blank'>View listing photos &#8594;</a>
             
         </div>
         </a>
 
         
-        <a href='https://www.airbnb.com/rooms/43848803' target='_blank'>
+        <a href='https://www.airbnb.com/rooms/43846039' target='_blank'>
         <div class='centroid-list-item'>
             
-                <p style='font-size:1em'><b>43848803</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 2BR in Quincy</p>
+                <p style='font-size:1em'><b>43846039</b></p>
+                <p style='font-size:1.1em'>Clean apartment home | 2BR in Boston</p>
             
                 <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
+                    <b>91</b></p>
                 <p> <span class='text-lite'>License:</span>
                     <b>Missing</b> (No license claimed)</p>
                     
-                <a href='https://www.airbnb.com/rooms/43848803' target='_blank'>View listing photos &#8594;</a>
+                <a href='https://www.airbnb.com/rooms/43846039' target='_blank'>View listing photos &#8594;</a>
             
         </div>
         </a>
 
         
-        <a href='https://www.airbnb.com/rooms/43943511' target='_blank'>
+        <a href='https://www.airbnb.com/rooms/43846040' target='_blank'>
         <div class='centroid-list-item'>
             
-                <p style='font-size:1em'><b>43943511</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 2BR in Quincy</p>
+                <p style='font-size:1em'><b>43846040</b></p>
+                <p style='font-size:1.1em'>Clean apartment home | 2BR in Boston</p>
             
                 <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
+                    <b>91</b></p>
                 <p> <span class='text-lite'>License:</span>
                     <b>Missing</b> (No license claimed)</p>
                     
-                <a href='https://www.airbnb.com/rooms/43943511' target='_blank'>View listing photos &#8594;</a>
+                <a href='https://www.airbnb.com/rooms/43846040' target='_blank'>View listing photos &#8594;</a>
             
         </div>
         </a>
 
         
-        <a href='https://www.airbnb.com/rooms/44618521' target='_blank'>
+        <a href='https://www.airbnb.com/rooms/43846041' target='_blank'>
         <div class='centroid-list-item'>
             
-                <p style='font-size:1em'><b>44618521</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 1BR in Quincy</p>
+                <p style='font-size:1em'><b>43846041</b></p>
+                <p style='font-size:1.1em'>Clean apartment home | 2BR in Boston</p>
             
                 <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
+                    <b>91</b></p>
                 <p> <span class='text-lite'>License:</span>
                     <b>Missing</b> (No license claimed)</p>
                     
-                <a href='https://www.airbnb.com/rooms/44618521' target='_blank'>View listing photos &#8594;</a>
+                <a href='https://www.airbnb.com/rooms/43846041' target='_blank'>View listing photos &#8594;</a>
             
         </div>
         </a>
 
         
-        <a href='https://www.airbnb.com/rooms/44618536' target='_blank'>
+        <a href='https://www.airbnb.com/rooms/43846043' target='_blank'>
         <div class='centroid-list-item'>
             
-                <p style='font-size:1em'><b>44618536</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 2BR in Quincy</p>
+                <p style='font-size:1em'><b>43846043</b></p>
+                <p style='font-size:1.1em'>Clean apartment home | 2BR in Boston</p>
             
                 <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
+                    <b>91</b></p>
                 <p> <span class='text-lite'>License:</span>
                     <b>Missing</b> (No license claimed)</p>
                     
-                <a href='https://www.airbnb.com/rooms/44618536' target='_blank'>View listing photos &#8594;</a>
+                <a href='https://www.airbnb.com/rooms/43846043' target='_blank'>View listing photos &#8594;</a>
             
         </div>
         </a>
 
         
-        <a href='https://www.airbnb.com/rooms/44618552' target='_blank'>
+        <a href='https://www.airbnb.com/rooms/43846045' target='_blank'>
         <div class='centroid-list-item'>
             
-                <p style='font-size:1em'><b>44618552</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 2BR in Quincy</p>
+                <p style='font-size:1em'><b>43846045</b></p>
+                <p style='font-size:1.1em'>Clean apartment home | 2BR in Boston</p>
             
                 <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
+                    <b>91</b></p>
                 <p> <span class='text-lite'>License:</span>
                     <b>Missing</b> (No license claimed)</p>
                     
-                <a href='https://www.airbnb.com/rooms/44618552' target='_blank'>View listing photos &#8594;</a>
+                <a href='https://www.airbnb.com/rooms/43846045' target='_blank'>View listing photos &#8594;</a>
             
         </div>
         </a>
 
         
-        <a href='https://www.airbnb.com/rooms/44618560' target='_blank'>
+        <a href='https://www.airbnb.com/rooms/43846055' target='_blank'>
         <div class='centroid-list-item'>
             
-                <p style='font-size:1em'><b>44618560</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 1BR in Quincy</p>
+                <p style='font-size:1em'><b>43846055</b></p>
+                <p style='font-size:1.1em'>Clean apartment home | 1BR in Boston</p>
             
                 <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
+                    <b>91</b></p>
                 <p> <span class='text-lite'>License:</span>
                     <b>Missing</b> (No license claimed)</p>
                     
-                <a href='https://www.airbnb.com/rooms/44618560' target='_blank'>View listing photos &#8594;</a>
+                <a href='https://www.airbnb.com/rooms/43846055' target='_blank'>View listing photos &#8594;</a>
             
         </div>
         </a>
 
         
-        <a href='https://www.airbnb.com/rooms/44618566' target='_blank'>
+        <a href='https://www.airbnb.com/rooms/44618555' target='_blank'>
         <div class='centroid-list-item'>
             
-                <p style='font-size:1em'><b>44618566</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 1BR in Quincy</p>
+                <p style='font-size:1em'><b>44618555</b></p>
+                <p style='font-size:1.1em'>Clean apartment home | 1BR in Boston</p>
             
                 <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
+                    <b>91</b></p>
                 <p> <span class='text-lite'>License:</span>
                     <b>Missing</b> (No license claimed)</p>
                     
-                <a href='https://www.airbnb.com/rooms/44618566' target='_blank'>View listing photos &#8594;</a>
+                <a href='https://www.airbnb.com/rooms/44618555' target='_blank'>View listing photos &#8594;</a>
             
         </div>
         </a>
 
         
-        <a href='https://www.airbnb.com/rooms/45122181' target='_blank'>
+        <a href='https://www.airbnb.com/rooms/44618559' target='_blank'>
         <div class='centroid-list-item'>
             
-                <p style='font-size:1em'><b>45122181</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 1BR in Quincy</p>
+                <p style='font-size:1em'><b>44618559</b></p>
+                <p style='font-size:1.1em'>Clean apartment home | 1BR in Boston</p>
             
                 <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
+                    <b>91</b></p>
                 <p> <span class='text-lite'>License:</span>
                     <b>Missing</b> (No license claimed)</p>
                     
-                <a href='https://www.airbnb.com/rooms/45122181' target='_blank'>View listing photos &#8594;</a>
+                <a href='https://www.airbnb.com/rooms/44618559' target='_blank'>View listing photos &#8594;</a>
             
         </div>
         </a>
 
         
-        <a href='https://www.airbnb.com/rooms/45122185' target='_blank'>
+        <a href='https://www.airbnb.com/rooms/44618564' target='_blank'>
         <div class='centroid-list-item'>
             
-                <p style='font-size:1em'><b>45122185</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 2BR in Quincy</p>
+                <p style='font-size:1em'><b>44618564</b></p>
+                <p style='font-size:1.1em'>Clean apartment home | 2BR in Boston</p>
             
                 <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
+                    <b>91</b></p>
                 <p> <span class='text-lite'>License:</span>
                     <b>Missing</b> (No license claimed)</p>
                     
-                <a href='https://www.airbnb.com/rooms/45122185' target='_blank'>View listing photos &#8594;</a>
+                <a href='https://www.airbnb.com/rooms/44618564' target='_blank'>View listing photos &#8594;</a>
             
         </div>
         </a>
 
         
-        <a href='https://www.airbnb.com/rooms/45122188' target='_blank'>
+        <a href='https://www.airbnb.com/rooms/44618571' target='_blank'>
         <div class='centroid-list-item'>
             
-                <p style='font-size:1em'><b>45122188</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 2BR in Quincy</p>
+                <p style='font-size:1em'><b>44618571</b></p>
+                <p style='font-size:1.1em'>Clean apartment home | 2BR in Boston</p>
             
                 <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
+                    <b>91</b></p>
                 <p> <span class='text-lite'>License:</span>
                     <b>Missing</b> (No license claimed)</p>
                     
-                <a href='https://www.airbnb.com/rooms/45122188' target='_blank'>View listing photos &#8594;</a>
+                <a href='https://www.airbnb.com/rooms/44618571' target='_blank'>View listing photos &#8594;</a>
             
         </div>
         </a>
 
         
-        <a href='https://www.airbnb.com/rooms/45122189' target='_blank'>
+        <a href='https://www.airbnb.com/rooms/44618574' target='_blank'>
         <div class='centroid-list-item'>
             
-                <p style='font-size:1em'><b>45122189</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 1BR in Quincy</p>
+                <p style='font-size:1em'><b>44618574</b></p>
+                <p style='font-size:1.1em'>Clean apartment home | Studio in Boston</p>
             
                 <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
+                    <b>91</b></p>
                 <p> <span class='text-lite'>License:</span>
                     <b>Missing</b> (No license claimed)</p>
                     
-                <a href='https://www.airbnb.com/rooms/45122189' target='_blank'>View listing photos &#8594;</a>
+                <a href='https://www.airbnb.com/rooms/44618574' target='_blank'>View listing photos &#8594;</a>
             
         </div>
         </a>
 
         
-        <a href='https://www.airbnb.com/rooms/45122190' target='_blank'>
+        <a href='https://www.airbnb.com/rooms/44618589' target='_blank'>
         <div class='centroid-list-item'>
             
-                <p style='font-size:1em'><b>45122190</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 1BR in Quincy</p>
+                <p style='font-size:1em'><b>44618589</b></p>
+                <p style='font-size:1.1em'>Clean apartment home | 1BR in Boston</p>
             
                 <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
+                    <b>91</b></p>
                 <p> <span class='text-lite'>License:</span>
                     <b>Missing</b> (No license claimed)</p>
                     
-                <a href='https://www.airbnb.com/rooms/45122190' target='_blank'>View listing photos &#8594;</a>
+                <a href='https://www.airbnb.com/rooms/44618589' target='_blank'>View listing photos &#8594;</a>
             
         </div>
         </a>
 
         
-        <a href='https://www.airbnb.com/rooms/45122191' target='_blank'>
+        <a href='https://www.airbnb.com/rooms/44618598' target='_blank'>
         <div class='centroid-list-item'>
             
-                <p style='font-size:1em'><b>45122191</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 2BR in Quincy</p>
+                <p style='font-size:1em'><b>44618598</b></p>
+                <p style='font-size:1.1em'>Clean apartment home | 2BR in Boston</p>
             
                 <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
+                    <b>91</b></p>
                 <p> <span class='text-lite'>License:</span>
                     <b>Missing</b> (No license claimed)</p>
                     
-                <a href='https://www.airbnb.com/rooms/45122191' target='_blank'>View listing photos &#8594;</a>
+                <a href='https://www.airbnb.com/rooms/44618598' target='_blank'>View listing photos &#8594;</a>
             
         </div>
         </a>
 
         
-        <a href='https://www.airbnb.com/rooms/45122192' target='_blank'>
+        <a href='https://www.airbnb.com/rooms/44618600' target='_blank'>
         <div class='centroid-list-item'>
             
-                <p style='font-size:1em'><b>45122192</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 1BR in Quincy</p>
+                <p style='font-size:1em'><b>44618600</b></p>
+                <p style='font-size:1.1em'>Clean apartment home | 1BR in Boston</p>
             
                 <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
+                    <b>91</b></p>
                 <p> <span class='text-lite'>License:</span>
                     <b>Missing</b> (No license claimed)</p>
                     
-                <a href='https://www.airbnb.com/rooms/45122192' target='_blank'>View listing photos &#8594;</a>
+                <a href='https://www.airbnb.com/rooms/44618600' target='_blank'>View listing photos &#8594;</a>
             
         </div>
         </a>
 
         
-        <a href='https://www.airbnb.com/rooms/45122193' target='_blank'>
+        <a href='https://www.airbnb.com/rooms/44618601' target='_blank'>
         <div class='centroid-list-item'>
             
-                <p style='font-size:1em'><b>45122193</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 2BR in Quincy</p>
+                <p style='font-size:1em'><b>44618601</b></p>
+                <p style='font-size:1.1em'>Clean apartment home | 1BR in Boston</p>
             
                 <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
+                    <b>91</b></p>
                 <p> <span class='text-lite'>License:</span>
                     <b>Missing</b> (No license claimed)</p>
                     
-                <a href='https://www.airbnb.com/rooms/45122193' target='_blank'>View listing photos &#8594;</a>
+                <a href='https://www.airbnb.com/rooms/44618601' target='_blank'>View listing photos &#8594;</a>
             
         </div>
         </a>
 
         
-        <a href='https://www.airbnb.com/rooms/45122194' target='_blank'>
+        <a href='https://www.airbnb.com/rooms/45122667' target='_blank'>
         <div class='centroid-list-item'>
             
-                <p style='font-size:1em'><b>45122194</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 2BR in Quincy</p>
+                <p style='font-size:1em'><b>45122667</b></p>
+                <p style='font-size:1.1em'>Clean apartment home | 2BR in Boston</p>
             
                 <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
+                    <b>91</b></p>
                 <p> <span class='text-lite'>License:</span>
                     <b>Missing</b> (No license claimed)</p>
                     
-                <a href='https://www.airbnb.com/rooms/45122194' target='_blank'>View listing photos &#8594;</a>
+                <a href='https://www.airbnb.com/rooms/45122667' target='_blank'>View listing photos &#8594;</a>
             
         </div>
         </a>
 
         
-        <a href='https://www.airbnb.com/rooms/45122195' target='_blank'>
+        <a href='https://www.airbnb.com/rooms/45122669' target='_blank'>
         <div class='centroid-list-item'>
             
-                <p style='font-size:1em'><b>45122195</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 1BR in Quincy</p>
+                <p style='font-size:1em'><b>45122669</b></p>
+                <p style='font-size:1.1em'>Clean apartment home | Studio in Boston</p>
             
                 <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
+                    <b>91</b></p>
                 <p> <span class='text-lite'>License:</span>
                     <b>Missing</b> (No license claimed)</p>
                     
-                <a href='https://www.airbnb.com/rooms/45122195' target='_blank'>View listing photos &#8594;</a>
+                <a href='https://www.airbnb.com/rooms/45122669' target='_blank'>View listing photos &#8594;</a>
             
         </div>
         </a>
 
         
-        <a href='https://www.airbnb.com/rooms/45122199' target='_blank'>
+        <a href='https://www.airbnb.com/rooms/45122684' target='_blank'>
         <div class='centroid-list-item'>
             
-                <p style='font-size:1em'><b>45122199</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 2BR in Quincy</p>
+                <p style='font-size:1em'><b>45122684</b></p>
+                <p style='font-size:1.1em'>Clean apartment home | Studio in Boston</p>
             
                 <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
+                    <b>91</b></p>
                 <p> <span class='text-lite'>License:</span>
                     <b>Missing</b> (No license claimed)</p>
                     
-                <a href='https://www.airbnb.com/rooms/45122199' target='_blank'>View listing photos &#8594;</a>
+                <a href='https://www.airbnb.com/rooms/45122684' target='_blank'>View listing photos &#8594;</a>
             
         </div>
         </a>
 
         
-        <a href='https://www.airbnb.com/rooms/45122200' target='_blank'>
+        <a href='https://www.airbnb.com/rooms/45122688' target='_blank'>
         <div class='centroid-list-item'>
             
-                <p style='font-size:1em'><b>45122200</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 2BR in Quincy</p>
+                <p style='font-size:1em'><b>45122688</b></p>
+                <p style='font-size:1.1em'>Clean apartment home | Studio in Boston</p>
             
                 <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
+                    <b>91</b></p>
                 <p> <span class='text-lite'>License:</span>
                     <b>Missing</b> (No license claimed)</p>
                     
-                <a href='https://www.airbnb.com/rooms/45122200' target='_blank'>View listing photos &#8594;</a>
+                <a href='https://www.airbnb.com/rooms/45122688' target='_blank'>View listing photos &#8594;</a>
             
         </div>
         </a>
 
         
-        <a href='https://www.airbnb.com/rooms/45122201' target='_blank'>
+        <a href='https://www.airbnb.com/rooms/45122694' target='_blank'>
         <div class='centroid-list-item'>
             
-                <p style='font-size:1em'><b>45122201</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 2BR in Quincy</p>
+                <p style='font-size:1em'><b>45122694</b></p>
+                <p style='font-size:1.1em'>Clean apartment home | 2BR in Boston</p>
             
                 <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
+                    <b>91</b></p>
                 <p> <span class='text-lite'>License:</span>
                     <b>Missing</b> (No license claimed)</p>
                     
-                <a href='https://www.airbnb.com/rooms/45122201' target='_blank'>View listing photos &#8594;</a>
+                <a href='https://www.airbnb.com/rooms/45122694' target='_blank'>View listing photos &#8594;</a>
             
         </div>
         </a>
 
         
-        <a href='https://www.airbnb.com/rooms/45122202' target='_blank'>
+        <a href='https://www.airbnb.com/rooms/45122709' target='_blank'>
         <div class='centroid-list-item'>
             
-                <p style='font-size:1em'><b>45122202</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 2BR in Quincy</p>
+                <p style='font-size:1em'><b>45122709</b></p>
+                <p style='font-size:1.1em'>Clean apartment home | 1BR in Boston</p>
             
                 <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
+                    <b>91</b></p>
                 <p> <span class='text-lite'>License:</span>
                     <b>Missing</b> (No license claimed)</p>
                     
-                <a href='https://www.airbnb.com/rooms/45122202' target='_blank'>View listing photos &#8594;</a>
+                <a href='https://www.airbnb.com/rooms/45122709' target='_blank'>View listing photos &#8594;</a>
             
         </div>
         </a>
 
         
-        <a href='https://www.airbnb.com/rooms/45122204' target='_blank'>
+        <a href='https://www.airbnb.com/rooms/45122710' target='_blank'>
         <div class='centroid-list-item'>
             
-                <p style='font-size:1em'><b>45122204</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 2BR in Quincy</p>
+                <p style='font-size:1em'><b>45122710</b></p>
+                <p style='font-size:1.1em'>Clean apartment home | 1BR in Boston</p>
             
                 <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
+                    <b>91</b></p>
                 <p> <span class='text-lite'>License:</span>
                     <b>Missing</b> (No license claimed)</p>
                     
-                <a href='https://www.airbnb.com/rooms/45122204' target='_blank'>View listing photos &#8594;</a>
+                <a href='https://www.airbnb.com/rooms/45122710' target='_blank'>View listing photos &#8594;</a>
             
         </div>
         </a>
 
         
-        <a href='https://www.airbnb.com/rooms/45122205' target='_blank'>
+        <a href='https://www.airbnb.com/rooms/45122742' target='_blank'>
         <div class='centroid-list-item'>
             
-                <p style='font-size:1em'><b>45122205</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 2BR in Quincy</p>
+                <p style='font-size:1em'><b>45122742</b></p>
+                <p style='font-size:1.1em'>Clean apartment home | 1BR in Boston</p>
             
                 <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
+                    <b>91</b></p>
                 <p> <span class='text-lite'>License:</span>
                     <b>Missing</b> (No license claimed)</p>
                     
-                <a href='https://www.airbnb.com/rooms/45122205' target='_blank'>View listing photos &#8594;</a>
-            
-        </div>
-        </a>
-
-        
-        <a href='https://www.airbnb.com/rooms/45122206' target='_blank'>
-        <div class='centroid-list-item'>
-            
-                <p style='font-size:1em'><b>45122206</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 2BR in Quincy</p>
-            
-                <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
-                <p> <span class='text-lite'>License:</span>
-                    <b>Missing</b> (No license claimed)</p>
-                    
-                <a href='https://www.airbnb.com/rooms/45122206' target='_blank'>View listing photos &#8594;</a>
-            
-        </div>
-        </a>
-
-        
-        <a href='https://www.airbnb.com/rooms/45122207' target='_blank'>
-        <div class='centroid-list-item'>
-            
-                <p style='font-size:1em'><b>45122207</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 2BR in Quincy</p>
-            
-                <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
-                <p> <span class='text-lite'>License:</span>
-                    <b>Missing</b> (No license claimed)</p>
-                    
-                <a href='https://www.airbnb.com/rooms/45122207' target='_blank'>View listing photos &#8594;</a>
-            
-        </div>
-        </a>
-
-        
-        <a href='https://www.airbnb.com/rooms/45122208' target='_blank'>
-        <div class='centroid-list-item'>
-            
-                <p style='font-size:1em'><b>45122208</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 2BR in Quincy</p>
-            
-                <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
-                <p> <span class='text-lite'>License:</span>
-                    <b>Missing</b> (No license claimed)</p>
-                    
-                <a href='https://www.airbnb.com/rooms/45122208' target='_blank'>View listing photos &#8594;</a>
-            
-        </div>
-        </a>
-
-        
-        <a href='https://www.airbnb.com/rooms/45122209' target='_blank'>
-        <div class='centroid-list-item'>
-            
-                <p style='font-size:1em'><b>45122209</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 1BR in Quincy</p>
-            
-                <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
-                <p> <span class='text-lite'>License:</span>
-                    <b>Missing</b> (No license claimed)</p>
-                    
-                <a href='https://www.airbnb.com/rooms/45122209' target='_blank'>View listing photos &#8594;</a>
-            
-        </div>
-        </a>
-
-        
-        <a href='https://www.airbnb.com/rooms/45122210' target='_blank'>
-        <div class='centroid-list-item'>
-            
-                <p style='font-size:1em'><b>45122210</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 1BR in Quincy</p>
-            
-                <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
-                <p> <span class='text-lite'>License:</span>
-                    <b>Missing</b> (No license claimed)</p>
-                    
-                <a href='https://www.airbnb.com/rooms/45122210' target='_blank'>View listing photos &#8594;</a>
-            
-        </div>
-        </a>
-
-        
-        <a href='https://www.airbnb.com/rooms/45122212' target='_blank'>
-        <div class='centroid-list-item'>
-            
-                <p style='font-size:1em'><b>45122212</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 2BR in Quincy</p>
-            
-                <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
-                <p> <span class='text-lite'>License:</span>
-                    <b>Missing</b> (No license claimed)</p>
-                    
-                <a href='https://www.airbnb.com/rooms/45122212' target='_blank'>View listing photos &#8594;</a>
-            
-        </div>
-        </a>
-
-        
-        <a href='https://www.airbnb.com/rooms/45122213' target='_blank'>
-        <div class='centroid-list-item'>
-            
-                <p style='font-size:1em'><b>45122213</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 2BR in Quincy</p>
-            
-                <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
-                <p> <span class='text-lite'>License:</span>
-                    <b>Missing</b> (No license claimed)</p>
-                    
-                <a href='https://www.airbnb.com/rooms/45122213' target='_blank'>View listing photos &#8594;</a>
-            
-        </div>
-        </a>
-
-        
-        <a href='https://www.airbnb.com/rooms/45122214' target='_blank'>
-        <div class='centroid-list-item'>
-            
-                <p style='font-size:1em'><b>45122214</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 1BR in Quincy</p>
-            
-                <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
-                <p> <span class='text-lite'>License:</span>
-                    <b>Missing</b> (No license claimed)</p>
-                    
-                <a href='https://www.airbnb.com/rooms/45122214' target='_blank'>View listing photos &#8594;</a>
-            
-        </div>
-        </a>
-
-        
-        <a href='https://www.airbnb.com/rooms/45122215' target='_blank'>
-        <div class='centroid-list-item'>
-            
-                <p style='font-size:1em'><b>45122215</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 1BR in Quincy</p>
-            
-                <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
-                <p> <span class='text-lite'>License:</span>
-                    <b>Missing</b> (No license claimed)</p>
-                    
-                <a href='https://www.airbnb.com/rooms/45122215' target='_blank'>View listing photos &#8594;</a>
-            
-        </div>
-        </a>
-
-        
-        <a href='https://www.airbnb.com/rooms/45122216' target='_blank'>
-        <div class='centroid-list-item'>
-            
-                <p style='font-size:1em'><b>45122216</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 2BR in Quincy</p>
-            
-                <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
-                <p> <span class='text-lite'>License:</span>
-                    <b>Missing</b> (No license claimed)</p>
-                    
-                <a href='https://www.airbnb.com/rooms/45122216' target='_blank'>View listing photos &#8594;</a>
-            
-        </div>
-        </a>
-
-        
-        <a href='https://www.airbnb.com/rooms/45163780' target='_blank'>
-        <div class='centroid-list-item'>
-            
-                <p style='font-size:1em'><b>45163780</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 1BR in Quincy</p>
-            
-                <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
-                <p> <span class='text-lite'>License:</span>
-                    <b>Missing</b> (No license claimed)</p>
-                    
-                <a href='https://www.airbnb.com/rooms/45163780' target='_blank'>View listing photos &#8594;</a>
-            
-        </div>
-        </a>
-
-        
-        <a href='https://www.airbnb.com/rooms/45177448' target='_blank'>
-        <div class='centroid-list-item'>
-            
-                <p style='font-size:1em'><b>45177448</b></p>
-                <p style='font-size:1.1em'>Stay in a place of your own | 1BR in Quincy</p>
-            
-                <p> <span class='text-lite'>Minimum nights per stay:</span>
-                    <b>92</b></p>
-                <p> <span class='text-lite'>License:</span>
-                    <b>Missing</b> (No license claimed)</p>
-                    
-                <a href='https://www.airbnb.com/rooms/45177448' target='_blank'>View listing photos &#8594;</a>
+                <a href='https://www.airbnb.com/rooms/45122742' target='_blank'>View listing photos &#8594;</a>
             
         </div>
         </a>
@@ -1290,7 +2194,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_9bcee8f3717f42609d309530e7661182 {
+                #map_973120fe2c8242a5ac4f3acc98a93a53 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -1312,19 +2216,19 @@
          font-size:12px">
             <span style='margin: 0px;'>
                 <a target='blank' href='insideairbnb.com'>InsideAirbnb</a>:
-                    2020-09-01 | STR registry: 2020-08-05
+                    Sep. 2020 | STR registry: Aug. 2020
             </span>
           </div> 
     
-            <div class="folium-map" id="map_9bcee8f3717f42609d309530e7661182" ></div>
+            <div class="folium-map" id="map_973120fe2c8242a5ac4f3acc98a93a53" ></div>
         
 </body>
 <script>    
     
-            var map_9bcee8f3717f42609d309530e7661182 = L.map(
-                "map_9bcee8f3717f42609d309530e7661182",
+            var map_973120fe2c8242a5ac4f3acc98a93a53 = L.map(
+                "map_973120fe2c8242a5ac4f3acc98a93a53",
                 {
-                    center: [42.28345, -71.03635],
+                    center: [42.32888, -71.111135],
                     crs: L.CRS.EPSG3857,
                     zoom: 18,
                     zoomControl: true,
@@ -1336,35 +2240,56 @@
 
         
     
-            var tile_layer_1c80968fb15740508ab98d25df0a9118 = L.tileLayer(
+            var tile_layer_e8778bbf4c0d4295aa2a6640d1078c60 = L.tileLayer(
                 "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
                 {"attribution": "\u0026copy; \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"http://cartodb.com/attributions\"\u003eCartoDB\u003c/a\u003e, CartoDB \u003ca href =\"http://cartodb.com/attributions\"\u003eattributions\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            ).addTo(map_9bcee8f3717f42609d309530e7661182);
+            ).addTo(map_973120fe2c8242a5ac4f3acc98a93a53);
         
     
-            var feature_group_6f73591f4e8e47e48402602fb0e472f2 = L.featureGroup(
+            var feature_group_922c2bfe71c04f1c996f66d2a062f854 = L.featureGroup(
                 {}
-            ).addTo(map_9bcee8f3717f42609d309530e7661182);
+            ).addTo(map_973120fe2c8242a5ac4f3acc98a93a53);
         
     
-            var circle_8f9a22ac0e174e04a03a6020fb0dda77 = L.circle(
-                [42.28344999999997, -71.03635],
-                {"bubblingMouseEvents": true, "color": "#448AFF", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.562219486145303, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.862219486145303, "radius": 80.0, "stroke": true, "weight": 2}
-            ).addTo(map_9bcee8f3717f42609d309530e7661182);
+            var marker_72b7148ec1a44187ab672cbad327c7dc = L.marker(
+                [42.3294042, -71.11152229999999],
+                {}
+            ).addTo(feature_group_922c2bfe71c04f1c996f66d2a062f854);
         
     
-            circle_8f9a22ac0e174e04a03a6020fb0dda77.bindTooltip(
+            var icon_8d39e709794b46428130101e8c6d96bd = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "building", "iconColor": "#5E35B1", "markerColor": "lightgray", "prefix": "fa"}
+            );
+            marker_72b7148ec1a44187ab672cbad327c7dc.setIcon(icon_8d39e709794b46428130101e8c6d96bd);
+        
+    
+            marker_72b7148ec1a44187ab672cbad327c7dc.bindTooltip(
+                `<div>
+                     <b style='font-size:.88em'>Known STR Building</b><br>Serenity Apartments<br><b style='font-size:1.2em; color:#5E35B1'>101 South Huntington Ave, Jamaica Plain MA 02130</b><br>Units: 195.0 | Floors: 13.0 | Source: RichCorpSS<br><b>Known operators: </b><br> &#8226; Churchill Corporate Housing<br> &#8226; Global Luxury Suites<div style='height:4px'></div><span style='color:#448AFF' >Distance from cluster center: <b>22 ft.</b></span>
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_ccaf122ba6db46f18bd8f1cc426e0592 = L.circle(
+                [42.3292864, -71.1114364],
+                {"bubblingMouseEvents": true, "color": "#448AFF", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.5404230970983375, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.8404230970983375, "radius": 80.0, "stroke": true, "weight": 2}
+            ).addTo(map_973120fe2c8242a5ac4f3acc98a93a53);
+        
+    
+            circle_ccaf122ba6db46f18bd8f1cc426e0592.bindTooltip(
                 `<div>
                      
         <p style='font-size:1.25em; margin:0; color:#448AFF'>
         Cluster <b>1-4
         </b></p>
-        <p style='font-size:1.0em; margin: 0 0 1px; color:#FF9800'><span style='color:black!important;font-size:.9em'>
+        <p style='font-size:1.0em; margin: 0 0 1px; color:#FF9800'><span style='color:#448AFF!important;font-size:.92em'>
+            <i class="fa fa-plus-square"></i> New location for host (since Jul. 2020)</span> <br> <span style='color:black!important;font-size:.95em'>
                 <b>Listings license status:</b></span><br>
             <i class="fa fa-ban"></i> No license claimed </p>
-        Host: <b>PCHNortheast </b> | Listings: <b>37</b>
+        Host: <b>PCHNortheast </b> | Listings: <b>25</b>
         <br>Minimum  stay:  <b style='color:black'>
-            92 nights </b>  
+            91 nights </b>  
         
         
                  </div>`,
@@ -1372,62 +2297,25 @@
             );
         
     
-            var circle_3458ac89a0744a8b9c7de577e73acb75 = L.circle(
-                [42.28344999999997, -71.03635],
-                {"bubblingMouseEvents": true, "color": "#FF9800", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#448AFF", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 52.0, "stroke": true, "weight": 3}
-            ).addTo(map_9bcee8f3717f42609d309530e7661182);
-        
-    
-        var popup_0fe4c03757ec4b6a9b3135a62ce25a73 = L.popup({"maxWidth": "100%"});
-
-        
-            var html_bcfeb14e18134e57b0f94539489e3544 = $(`<div id="html_bcfeb14e18134e57b0f94539489e3544" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                         <a class='centroid-link-btn'                            href='/sub_cluster/1-4-0.html'>                             <b>(Sub)cluster 1-4-0</b> |                             Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                      </div>                     </div>`)[0];
-            popup_0fe4c03757ec4b6a9b3135a62ce25a73.setContent(html_bcfeb14e18134e57b0f94539489e3544);
-        
-
-        circle_3458ac89a0744a8b9c7de577e73acb75.bindPopup(popup_0fe4c03757ec4b6a9b3135a62ce25a73)
-        ;
-
-        
-    
-    
-            circle_3458ac89a0744a8b9c7de577e73acb75.bindTooltip(
-                `<div>
-                     
-        <p style='font-size:1.25em; margin:0; color:#448AFF'>
-        (Sub)cluster <b>1-4-0
-        </b></p>
-        <p style='font-size:1.0em; margin: 0 0 1px; color:#FF9800'><span style='color:black!important;font-size:.9em'>
-                <b>Listings license status:</b></span><br>
-            <i class="fa fa-ban"></i> No license claimed </p>
-        Host: <b>PCHNortheast </b> | Listings: <b>37</b>
-        <br>Minimum  stay:  <b style='color:black'>
-            92 nights </b>  
-        
-        <br>At or near:<br><b style='color:#448AFF'>2 Hancock Street</b></span>
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var circle_dce6d0ddbe3a443d99748de765b19b1e = L.circle(
-                [42.28344999999997, -71.03635],
+            var circle_a4f6e591aff8466c881af8ae36c11aab = L.circle(
+                [42.3292864, -71.1114364],
                 {"bubblingMouseEvents": true, "color": "#448AFF", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#448AFF", "fillOpacity": 1, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.7, "radius": 6, "stroke": true, "weight": 4}
-            ).addTo(map_9bcee8f3717f42609d309530e7661182);
+            ).addTo(map_973120fe2c8242a5ac4f3acc98a93a53);
         
     
-            circle_dce6d0ddbe3a443d99748de765b19b1e.bindTooltip(
+            circle_a4f6e591aff8466c881af8ae36c11aab.bindTooltip(
                 `<div>
                      
         <p style='font-size:1.25em; margin:0; color:#448AFF'>
         Cluster <b>1-4
         </b></p>
-        <p style='font-size:1.0em; margin: 0 0 1px; color:#FF9800'><span style='color:black!important;font-size:.9em'>
+        <p style='font-size:1.0em; margin: 0 0 1px; color:#FF9800'><span style='color:#448AFF!important;font-size:.92em'>
+            <i class="fa fa-plus-square"></i> New location for host (since Jul. 2020)</span> <br> <span style='color:black!important;font-size:.95em'>
                 <b>Listings license status:</b></span><br>
             <i class="fa fa-ban"></i> No license claimed </p>
-        Host: <b>PCHNortheast </b> | Listings: <b>37</b>
+        Host: <b>PCHNortheast </b> | Listings: <b>25</b>
         <br>Minimum  stay:  <b style='color:black'>
-            92 nights </b>  
+            91 nights </b>  
         
         
                  </div>`,
@@ -1435,34 +2323,34 @@
             );
         
     
-            var feature_group_70f22d8cda2147cb9931db2db35643c1 = L.featureGroup(
+            var feature_group_4c752c3fd0374d5eba56bad350435a1e = L.featureGroup(
                 {}
-            ).addTo(map_9bcee8f3717f42609d309530e7661182);
+            ).addTo(map_973120fe2c8242a5ac4f3acc98a93a53);
         
     
-            var circle_6d7c515754ac43828d592c64d0ee8438 = L.circle(
-                [42.28345, -71.03635],
+            var circle_f6f9a9af27e44ecb81fefd7d664fd81f = L.circle(
+                [42.32935, -71.11149],
                 {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
+            ).addTo(feature_group_4c752c3fd0374d5eba56bad350435a1e);
         
     
-        var popup_7e80e7c394d5449092670b3918585fb0 = L.popup({"maxWidth": "100%"});
+        var popup_a5833194f1c94ac48da483fbe6e6f548 = L.popup({"maxWidth": "100%"});
 
         
-            var html_97c542ac6c2a4b66b98cdde9f14de01e = $(`<div id="html_97c542ac6c2a4b66b98cdde9f14de01e" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_7e80e7c394d5449092670b3918585fb0.setContent(html_97c542ac6c2a4b66b98cdde9f14de01e);
+            var html_c0bbaa1432e74633b01bd356a092af45 = $(`<div id="html_c0bbaa1432e74633b01bd356a092af45" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
+            popup_a5833194f1c94ac48da483fbe6e6f548.setContent(html_c0bbaa1432e74633b01bd356a092af45);
         
 
-        circle_6d7c515754ac43828d592c64d0ee8438.bindPopup(popup_7e80e7c394d5449092670b3918585fb0)
+        circle_f6f9a9af27e44ecb81fefd7d664fd81f.bindPopup(popup_a5833194f1c94ac48da483fbe6e6f548)
         ;
 
         
     
     
-            circle_6d7c515754ac43828d592c64d0ee8438.bindTooltip(
+            circle_f6f9a9af27e44ecb81fefd7d664fd81f.bindTooltip(
                 `<div>
                      
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>43848799</b></p>
+        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>43846033</b></p>
         Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
         
         Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
@@ -1479,29 +2367,29 @@
             );
         
     
-            var circle_1cd178dec39d4c558a7858345a8ce7c6 = L.circle(
-                [42.28345, -71.03635],
+            var circle_e20a9d278355466ab204bd6030bac75a = L.circle(
+                [42.32935, -71.11149],
                 {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
+            ).addTo(feature_group_4c752c3fd0374d5eba56bad350435a1e);
         
     
-        var popup_312bfe2eb14a421a9883294f479be172 = L.popup({"maxWidth": "100%"});
+        var popup_2cb03788465440a1af308a01c464ac7f = L.popup({"maxWidth": "100%"});
 
         
-            var html_ebfbe9fd625f40d1b4b9f404b3489e0f = $(`<div id="html_ebfbe9fd625f40d1b4b9f404b3489e0f" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_312bfe2eb14a421a9883294f479be172.setContent(html_ebfbe9fd625f40d1b4b9f404b3489e0f);
+            var html_e98e5639436b4e5aa26690c19813a681 = $(`<div id="html_e98e5639436b4e5aa26690c19813a681" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
+            popup_2cb03788465440a1af308a01c464ac7f.setContent(html_e98e5639436b4e5aa26690c19813a681);
         
 
-        circle_1cd178dec39d4c558a7858345a8ce7c6.bindPopup(popup_312bfe2eb14a421a9883294f479be172)
+        circle_e20a9d278355466ab204bd6030bac75a.bindPopup(popup_2cb03788465440a1af308a01c464ac7f)
         ;
 
         
     
     
-            circle_1cd178dec39d4c558a7858345a8ce7c6.bindTooltip(
+            circle_e20a9d278355466ab204bd6030bac75a.bindTooltip(
                 `<div>
                      
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>43848800</b></p>
+        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>43846038</b></p>
         Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
         
         Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
@@ -1518,29 +2406,29 @@
             );
         
     
-            var circle_41c830d470aa489b9c5db377a3d07679 = L.circle(
-                [42.28345, -71.03635],
+            var circle_9e627c51e7c643c38aa274cbe6c1474e = L.circle(
+                [42.32935, -71.11149],
                 {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
+            ).addTo(feature_group_4c752c3fd0374d5eba56bad350435a1e);
         
     
-        var popup_e880e5a6f9e24edba4812de9a9a75c55 = L.popup({"maxWidth": "100%"});
+        var popup_1f17a40623a345519132e0ed251cd5fa = L.popup({"maxWidth": "100%"});
 
         
-            var html_ad295c660983497abbef3bca6c8eb4e2 = $(`<div id="html_ad295c660983497abbef3bca6c8eb4e2" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_e880e5a6f9e24edba4812de9a9a75c55.setContent(html_ad295c660983497abbef3bca6c8eb4e2);
+            var html_5cfd57894c5b4238948df417f2bb8bbf = $(`<div id="html_5cfd57894c5b4238948df417f2bb8bbf" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
+            popup_1f17a40623a345519132e0ed251cd5fa.setContent(html_5cfd57894c5b4238948df417f2bb8bbf);
         
 
-        circle_41c830d470aa489b9c5db377a3d07679.bindPopup(popup_e880e5a6f9e24edba4812de9a9a75c55)
+        circle_9e627c51e7c643c38aa274cbe6c1474e.bindPopup(popup_1f17a40623a345519132e0ed251cd5fa)
         ;
 
         
     
     
-            circle_41c830d470aa489b9c5db377a3d07679.bindTooltip(
+            circle_9e627c51e7c643c38aa274cbe6c1474e.bindTooltip(
                 `<div>
                      
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>43848803</b></p>
+        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>43846039</b></p>
         Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
         
         Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
@@ -1557,29 +2445,29 @@
             );
         
     
-            var circle_a0d00965fd6e4c5aa8a23f044f69780d = L.circle(
-                [42.28345, -71.03635],
+            var circle_dfa2bb3aee404b1f9beba6b4ced85d7a = L.circle(
+                [42.32935, -71.11149],
                 {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
+            ).addTo(feature_group_4c752c3fd0374d5eba56bad350435a1e);
         
     
-        var popup_3a579bab61eb4d248705b40332804eda = L.popup({"maxWidth": "100%"});
+        var popup_fab96c1cc3344ad4949c6110d1d98a77 = L.popup({"maxWidth": "100%"});
 
         
-            var html_ff4b1d3808044b038f8ecd10211728be = $(`<div id="html_ff4b1d3808044b038f8ecd10211728be" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_3a579bab61eb4d248705b40332804eda.setContent(html_ff4b1d3808044b038f8ecd10211728be);
+            var html_15ab086b3abb4901a91db2f5eda9c6de = $(`<div id="html_15ab086b3abb4901a91db2f5eda9c6de" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
+            popup_fab96c1cc3344ad4949c6110d1d98a77.setContent(html_15ab086b3abb4901a91db2f5eda9c6de);
         
 
-        circle_a0d00965fd6e4c5aa8a23f044f69780d.bindPopup(popup_3a579bab61eb4d248705b40332804eda)
+        circle_dfa2bb3aee404b1f9beba6b4ced85d7a.bindPopup(popup_fab96c1cc3344ad4949c6110d1d98a77)
         ;
 
         
     
     
-            circle_a0d00965fd6e4c5aa8a23f044f69780d.bindTooltip(
+            circle_dfa2bb3aee404b1f9beba6b4ced85d7a.bindTooltip(
                 `<div>
                      
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>43943511</b></p>
+        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>43846040</b></p>
         Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
         
         Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
@@ -1596,29 +2484,29 @@
             );
         
     
-            var circle_0a68dde64ccd4937aa57a78e6d2a27d8 = L.circle(
-                [42.28345, -71.03635],
+            var circle_3e756602b295445299f864b799e4496a = L.circle(
+                [42.32935, -71.11149],
                 {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
+            ).addTo(feature_group_4c752c3fd0374d5eba56bad350435a1e);
         
     
-        var popup_f94a551eaf254a56b311fdcd268f2b85 = L.popup({"maxWidth": "100%"});
+        var popup_ffcb4d9c50fd4a8e975f5f3b27f2713e = L.popup({"maxWidth": "100%"});
 
         
-            var html_eb9b7281d1ff4d708510e88c80ab9b71 = $(`<div id="html_eb9b7281d1ff4d708510e88c80ab9b71" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_f94a551eaf254a56b311fdcd268f2b85.setContent(html_eb9b7281d1ff4d708510e88c80ab9b71);
+            var html_525e89451cc944c9b68f2bd9980b131c = $(`<div id="html_525e89451cc944c9b68f2bd9980b131c" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
+            popup_ffcb4d9c50fd4a8e975f5f3b27f2713e.setContent(html_525e89451cc944c9b68f2bd9980b131c);
         
 
-        circle_0a68dde64ccd4937aa57a78e6d2a27d8.bindPopup(popup_f94a551eaf254a56b311fdcd268f2b85)
+        circle_3e756602b295445299f864b799e4496a.bindPopup(popup_ffcb4d9c50fd4a8e975f5f3b27f2713e)
         ;
 
         
     
     
-            circle_0a68dde64ccd4937aa57a78e6d2a27d8.bindTooltip(
+            circle_3e756602b295445299f864b799e4496a.bindTooltip(
                 `<div>
                      
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>44618521</b></p>
+        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>43846041</b></p>
         Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
         
         Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
@@ -1635,29 +2523,29 @@
             );
         
     
-            var circle_c207f98062d24608b698e9defd4187b5 = L.circle(
-                [42.28345, -71.03635],
+            var circle_c86f0717b5b74e49a149aa3c48fe1142 = L.circle(
+                [42.32935, -71.11149],
                 {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
+            ).addTo(feature_group_4c752c3fd0374d5eba56bad350435a1e);
         
     
-        var popup_7e155b103e774516905a16a549473af3 = L.popup({"maxWidth": "100%"});
+        var popup_a48540ae5d284f8e9232b074fc1500d3 = L.popup({"maxWidth": "100%"});
 
         
-            var html_fbb31ec521784c5b89eeba1cb2f4628f = $(`<div id="html_fbb31ec521784c5b89eeba1cb2f4628f" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_7e155b103e774516905a16a549473af3.setContent(html_fbb31ec521784c5b89eeba1cb2f4628f);
+            var html_433c3c0057614bfbb0abc4078a5a1b6d = $(`<div id="html_433c3c0057614bfbb0abc4078a5a1b6d" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
+            popup_a48540ae5d284f8e9232b074fc1500d3.setContent(html_433c3c0057614bfbb0abc4078a5a1b6d);
         
 
-        circle_c207f98062d24608b698e9defd4187b5.bindPopup(popup_7e155b103e774516905a16a549473af3)
+        circle_c86f0717b5b74e49a149aa3c48fe1142.bindPopup(popup_a48540ae5d284f8e9232b074fc1500d3)
         ;
 
         
     
     
-            circle_c207f98062d24608b698e9defd4187b5.bindTooltip(
+            circle_c86f0717b5b74e49a149aa3c48fe1142.bindTooltip(
                 `<div>
                      
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>44618536</b></p>
+        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>43846043</b></p>
         Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
         
         Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
@@ -1674,29 +2562,29 @@
             );
         
     
-            var circle_c58cc049cd05449d80bd6abf46107f48 = L.circle(
-                [42.28345, -71.03635],
+            var circle_fbbc60e348444a5484711d1a0bfa960d = L.circle(
+                [42.32935, -71.11149],
                 {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
+            ).addTo(feature_group_4c752c3fd0374d5eba56bad350435a1e);
         
     
-        var popup_79664d741b6344e7b64f69e5d59f8d63 = L.popup({"maxWidth": "100%"});
+        var popup_ac320832ddb849c6b9b86951a8c033c9 = L.popup({"maxWidth": "100%"});
 
         
-            var html_594d0bc9970645aca9f6e54c248f7b1a = $(`<div id="html_594d0bc9970645aca9f6e54c248f7b1a" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_79664d741b6344e7b64f69e5d59f8d63.setContent(html_594d0bc9970645aca9f6e54c248f7b1a);
+            var html_f148434587ac45ef83032483b8f303c2 = $(`<div id="html_f148434587ac45ef83032483b8f303c2" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
+            popup_ac320832ddb849c6b9b86951a8c033c9.setContent(html_f148434587ac45ef83032483b8f303c2);
         
 
-        circle_c58cc049cd05449d80bd6abf46107f48.bindPopup(popup_79664d741b6344e7b64f69e5d59f8d63)
+        circle_fbbc60e348444a5484711d1a0bfa960d.bindPopup(popup_ac320832ddb849c6b9b86951a8c033c9)
         ;
 
         
     
     
-            circle_c58cc049cd05449d80bd6abf46107f48.bindTooltip(
+            circle_fbbc60e348444a5484711d1a0bfa960d.bindTooltip(
                 `<div>
                      
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>44618552</b></p>
+        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>43846045</b></p>
         Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
         
         Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
@@ -1713,29 +2601,29 @@
             );
         
     
-            var circle_59e58c7655eb4c9b883e7b82994f0284 = L.circle(
-                [42.28345, -71.03635],
+            var circle_886d97157c214a2f853ea294c280423a = L.circle(
+                [42.32935, -71.11149],
                 {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
+            ).addTo(feature_group_4c752c3fd0374d5eba56bad350435a1e);
         
     
-        var popup_37e0c3180bd84f7a974b54bb3d19f6d6 = L.popup({"maxWidth": "100%"});
+        var popup_de088112ee6d4ef6a3f1bcd746e0af8e = L.popup({"maxWidth": "100%"});
 
         
-            var html_b88c460f5100441790c56892d5aea629 = $(`<div id="html_b88c460f5100441790c56892d5aea629" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_37e0c3180bd84f7a974b54bb3d19f6d6.setContent(html_b88c460f5100441790c56892d5aea629);
+            var html_347493e96c0c4286b5e89fead64528cc = $(`<div id="html_347493e96c0c4286b5e89fead64528cc" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
+            popup_de088112ee6d4ef6a3f1bcd746e0af8e.setContent(html_347493e96c0c4286b5e89fead64528cc);
         
 
-        circle_59e58c7655eb4c9b883e7b82994f0284.bindPopup(popup_37e0c3180bd84f7a974b54bb3d19f6d6)
+        circle_886d97157c214a2f853ea294c280423a.bindPopup(popup_de088112ee6d4ef6a3f1bcd746e0af8e)
         ;
 
         
     
     
-            circle_59e58c7655eb4c9b883e7b82994f0284.bindTooltip(
+            circle_886d97157c214a2f853ea294c280423a.bindTooltip(
                 `<div>
                      
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>44618560</b></p>
+        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>43846055</b></p>
         Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
         
         Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
@@ -1752,29 +2640,29 @@
             );
         
     
-            var circle_8a0571c4633b4abd97f9f844c74e8c13 = L.circle(
-                [42.28345, -71.03635],
+            var circle_b66cd24126b04b7ab1cf5b472b2c797a = L.circle(
+                [42.32935, -71.11149],
                 {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
+            ).addTo(feature_group_4c752c3fd0374d5eba56bad350435a1e);
         
     
-        var popup_5da474a3e37b40ce9f3a37cd7844ebe6 = L.popup({"maxWidth": "100%"});
+        var popup_7cb8dd556f88444c86c8df921ad7a26e = L.popup({"maxWidth": "100%"});
 
         
-            var html_d1435612d4854416ab7ae502d3f85263 = $(`<div id="html_d1435612d4854416ab7ae502d3f85263" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_5da474a3e37b40ce9f3a37cd7844ebe6.setContent(html_d1435612d4854416ab7ae502d3f85263);
+            var html_88ccd6a76651445c9aa5ed79d7ce6b04 = $(`<div id="html_88ccd6a76651445c9aa5ed79d7ce6b04" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
+            popup_7cb8dd556f88444c86c8df921ad7a26e.setContent(html_88ccd6a76651445c9aa5ed79d7ce6b04);
         
 
-        circle_8a0571c4633b4abd97f9f844c74e8c13.bindPopup(popup_5da474a3e37b40ce9f3a37cd7844ebe6)
+        circle_b66cd24126b04b7ab1cf5b472b2c797a.bindPopup(popup_7cb8dd556f88444c86c8df921ad7a26e)
         ;
 
         
     
     
-            circle_8a0571c4633b4abd97f9f844c74e8c13.bindTooltip(
+            circle_b66cd24126b04b7ab1cf5b472b2c797a.bindTooltip(
                 `<div>
                      
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>44618566</b></p>
+        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>44618555</b></p>
         Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
         
         Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
@@ -1791,29 +2679,29 @@
             );
         
     
-            var circle_dc93607a07e24309bfc184aa6bb20f97 = L.circle(
-                [42.28345, -71.03635],
+            var circle_3a2e38e10099421f895a217570ca1b05 = L.circle(
+                [42.32841, -71.11086],
                 {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
+            ).addTo(feature_group_4c752c3fd0374d5eba56bad350435a1e);
         
     
-        var popup_6a6c431186474d34b001d63d61bba447 = L.popup({"maxWidth": "100%"});
+        var popup_397630a0f04d4391bce261e58e7de4d5 = L.popup({"maxWidth": "100%"});
 
         
-            var html_19fa23de51c64eed80c68765a3a785da = $(`<div id="html_19fa23de51c64eed80c68765a3a785da" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_6a6c431186474d34b001d63d61bba447.setContent(html_19fa23de51c64eed80c68765a3a785da);
+            var html_35e681b5dc7a44caa4032c770a321336 = $(`<div id="html_35e681b5dc7a44caa4032c770a321336" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
+            popup_397630a0f04d4391bce261e58e7de4d5.setContent(html_35e681b5dc7a44caa4032c770a321336);
         
 
-        circle_dc93607a07e24309bfc184aa6bb20f97.bindPopup(popup_6a6c431186474d34b001d63d61bba447)
+        circle_3a2e38e10099421f895a217570ca1b05.bindPopup(popup_397630a0f04d4391bce261e58e7de4d5)
         ;
 
         
     
     
-            circle_dc93607a07e24309bfc184aa6bb20f97.bindTooltip(
+            circle_3a2e38e10099421f895a217570ca1b05.bindTooltip(
                 `<div>
                      
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45122181</b></p>
+        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>44618559</b></p>
         Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
         
         Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
@@ -1830,29 +2718,29 @@
             );
         
     
-            var circle_05a4b160ded548c5b35ba2780e958d0b = L.circle(
-                [42.28345, -71.03635],
+            var circle_dd0cb4f64b614af683f4d4442bf3e665 = L.circle(
+                [42.32935, -71.11149],
                 {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
+            ).addTo(feature_group_4c752c3fd0374d5eba56bad350435a1e);
         
     
-        var popup_1a9da5eecacd4f529ccda8cc574d25d8 = L.popup({"maxWidth": "100%"});
+        var popup_5e9d6d14996647f1bc81099e58e895f3 = L.popup({"maxWidth": "100%"});
 
         
-            var html_15ca6f723d054d159f66f96a15c7ede9 = $(`<div id="html_15ca6f723d054d159f66f96a15c7ede9" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_1a9da5eecacd4f529ccda8cc574d25d8.setContent(html_15ca6f723d054d159f66f96a15c7ede9);
+            var html_a02578ad133344ce80ffe38ed66cae8b = $(`<div id="html_a02578ad133344ce80ffe38ed66cae8b" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
+            popup_5e9d6d14996647f1bc81099e58e895f3.setContent(html_a02578ad133344ce80ffe38ed66cae8b);
         
 
-        circle_05a4b160ded548c5b35ba2780e958d0b.bindPopup(popup_1a9da5eecacd4f529ccda8cc574d25d8)
+        circle_dd0cb4f64b614af683f4d4442bf3e665.bindPopup(popup_5e9d6d14996647f1bc81099e58e895f3)
         ;
 
         
     
     
-            circle_05a4b160ded548c5b35ba2780e958d0b.bindTooltip(
+            circle_dd0cb4f64b614af683f4d4442bf3e665.bindTooltip(
                 `<div>
                      
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45122185</b></p>
+        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>44618564</b></p>
         Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
         
         Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
@@ -1869,29 +2757,29 @@
             );
         
     
-            var circle_48fadeab111d44e694b685f33e42bf38 = L.circle(
-                [42.28345, -71.03635],
+            var circle_8022f541303449f2a87d79f44f1faef1 = L.circle(
+                [42.32935, -71.11149],
                 {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
+            ).addTo(feature_group_4c752c3fd0374d5eba56bad350435a1e);
         
     
-        var popup_34c5b2686d114db1b30dd9315c5be159 = L.popup({"maxWidth": "100%"});
+        var popup_f5d08dcfa24245239ba10f924cff77c3 = L.popup({"maxWidth": "100%"});
 
         
-            var html_cb4721850e684a2faa2b1896a9d3120e = $(`<div id="html_cb4721850e684a2faa2b1896a9d3120e" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_34c5b2686d114db1b30dd9315c5be159.setContent(html_cb4721850e684a2faa2b1896a9d3120e);
+            var html_7ed7f2fbedbf4526b078e1f6c126dbf5 = $(`<div id="html_7ed7f2fbedbf4526b078e1f6c126dbf5" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
+            popup_f5d08dcfa24245239ba10f924cff77c3.setContent(html_7ed7f2fbedbf4526b078e1f6c126dbf5);
         
 
-        circle_48fadeab111d44e694b685f33e42bf38.bindPopup(popup_34c5b2686d114db1b30dd9315c5be159)
+        circle_8022f541303449f2a87d79f44f1faef1.bindPopup(popup_f5d08dcfa24245239ba10f924cff77c3)
         ;
 
         
     
     
-            circle_48fadeab111d44e694b685f33e42bf38.bindTooltip(
+            circle_8022f541303449f2a87d79f44f1faef1.bindTooltip(
                 `<div>
                      
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45122188</b></p>
+        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>44618571</b></p>
         Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
         
         Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
@@ -1908,29 +2796,29 @@
             );
         
     
-            var circle_b383df1e813f49d3966551599bbbf7a6 = L.circle(
-                [42.28345, -71.03635],
+            var circle_e75b10de3dd64fb8901cb2171b8decda = L.circle(
+                [42.32935, -71.11149],
                 {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
+            ).addTo(feature_group_4c752c3fd0374d5eba56bad350435a1e);
         
     
-        var popup_2e9d0c886f744011b7c28eec2ce84733 = L.popup({"maxWidth": "100%"});
+        var popup_f9b3cb963e82452da430879213954256 = L.popup({"maxWidth": "100%"});
 
         
-            var html_71d6fd2df5a1454a98c42fc0e0d52010 = $(`<div id="html_71d6fd2df5a1454a98c42fc0e0d52010" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_2e9d0c886f744011b7c28eec2ce84733.setContent(html_71d6fd2df5a1454a98c42fc0e0d52010);
+            var html_5c64b6945b5946a2a25ed41f06ec0fb4 = $(`<div id="html_5c64b6945b5946a2a25ed41f06ec0fb4" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
+            popup_f9b3cb963e82452da430879213954256.setContent(html_5c64b6945b5946a2a25ed41f06ec0fb4);
         
 
-        circle_b383df1e813f49d3966551599bbbf7a6.bindPopup(popup_2e9d0c886f744011b7c28eec2ce84733)
+        circle_e75b10de3dd64fb8901cb2171b8decda.bindPopup(popup_f9b3cb963e82452da430879213954256)
         ;
 
         
     
     
-            circle_b383df1e813f49d3966551599bbbf7a6.bindTooltip(
+            circle_e75b10de3dd64fb8901cb2171b8decda.bindTooltip(
                 `<div>
                      
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45122189</b></p>
+        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>44618574</b></p>
         Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
         
         Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
@@ -1947,29 +2835,29 @@
             );
         
     
-            var circle_5caa036f5d5b4fcabccb3f7ef6f64b3b = L.circle(
-                [42.28345, -71.03635],
+            var circle_ffec5e22da724d2eb4b42fb97da1c03c = L.circle(
+                [42.3287, -71.11078],
                 {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
+            ).addTo(feature_group_4c752c3fd0374d5eba56bad350435a1e);
         
     
-        var popup_135faee7b6fb481ebede2396672462c3 = L.popup({"maxWidth": "100%"});
+        var popup_ef2b3f67d169464baaa213737bd82474 = L.popup({"maxWidth": "100%"});
 
         
-            var html_6c7b727259654239b01103c27ee295f9 = $(`<div id="html_6c7b727259654239b01103c27ee295f9" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_135faee7b6fb481ebede2396672462c3.setContent(html_6c7b727259654239b01103c27ee295f9);
+            var html_100d27949e764fe786357e6e91f79edd = $(`<div id="html_100d27949e764fe786357e6e91f79edd" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
+            popup_ef2b3f67d169464baaa213737bd82474.setContent(html_100d27949e764fe786357e6e91f79edd);
         
 
-        circle_5caa036f5d5b4fcabccb3f7ef6f64b3b.bindPopup(popup_135faee7b6fb481ebede2396672462c3)
+        circle_ffec5e22da724d2eb4b42fb97da1c03c.bindPopup(popup_ef2b3f67d169464baaa213737bd82474)
         ;
 
         
     
     
-            circle_5caa036f5d5b4fcabccb3f7ef6f64b3b.bindTooltip(
+            circle_ffec5e22da724d2eb4b42fb97da1c03c.bindTooltip(
                 `<div>
                      
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45122190</b></p>
+        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>44618589</b></p>
         Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
         
         Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
@@ -1986,29 +2874,29 @@
             );
         
     
-            var circle_25f6cae9ce9c4711b856ed88b6f509c3 = L.circle(
-                [42.28345, -71.03635],
+            var circle_4c992abd901a4dd8a2af7b176caecf3e = L.circle(
+                [42.32935, -71.11149],
                 {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
+            ).addTo(feature_group_4c752c3fd0374d5eba56bad350435a1e);
         
     
-        var popup_334048b344ec47b7b3e204f178d85f6f = L.popup({"maxWidth": "100%"});
+        var popup_b0aa873401114c80be8b19293aae17ee = L.popup({"maxWidth": "100%"});
 
         
-            var html_957615e0c2e2416da3dbbffcb154074f = $(`<div id="html_957615e0c2e2416da3dbbffcb154074f" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_334048b344ec47b7b3e204f178d85f6f.setContent(html_957615e0c2e2416da3dbbffcb154074f);
+            var html_0074881e04b54c37b361df0550c03db7 = $(`<div id="html_0074881e04b54c37b361df0550c03db7" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
+            popup_b0aa873401114c80be8b19293aae17ee.setContent(html_0074881e04b54c37b361df0550c03db7);
         
 
-        circle_25f6cae9ce9c4711b856ed88b6f509c3.bindPopup(popup_334048b344ec47b7b3e204f178d85f6f)
+        circle_4c992abd901a4dd8a2af7b176caecf3e.bindPopup(popup_b0aa873401114c80be8b19293aae17ee)
         ;
 
         
     
     
-            circle_25f6cae9ce9c4711b856ed88b6f509c3.bindTooltip(
+            circle_4c992abd901a4dd8a2af7b176caecf3e.bindTooltip(
                 `<div>
                      
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45122191</b></p>
+        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>44618598</b></p>
         Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
         
         Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
@@ -2025,29 +2913,29 @@
             );
         
     
-            var circle_06461b3104c8405396954d07ead1290d = L.circle(
-                [42.28345, -71.03635],
+            var circle_ed3421689abc4f1998bdbc4697320416 = L.circle(
+                [42.32935, -71.11149],
                 {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
+            ).addTo(feature_group_4c752c3fd0374d5eba56bad350435a1e);
         
     
-        var popup_4ead918b58cb4d15a57c7cfaf1ad0bab = L.popup({"maxWidth": "100%"});
+        var popup_f164f9728d744ee1aafd4171effc6b31 = L.popup({"maxWidth": "100%"});
 
         
-            var html_e0cb2e5ac05e409cb4e62d3988e26426 = $(`<div id="html_e0cb2e5ac05e409cb4e62d3988e26426" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_4ead918b58cb4d15a57c7cfaf1ad0bab.setContent(html_e0cb2e5ac05e409cb4e62d3988e26426);
+            var html_bf99e1c118ce411d9893ae9d394c1ee7 = $(`<div id="html_bf99e1c118ce411d9893ae9d394c1ee7" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
+            popup_f164f9728d744ee1aafd4171effc6b31.setContent(html_bf99e1c118ce411d9893ae9d394c1ee7);
         
 
-        circle_06461b3104c8405396954d07ead1290d.bindPopup(popup_4ead918b58cb4d15a57c7cfaf1ad0bab)
+        circle_ed3421689abc4f1998bdbc4697320416.bindPopup(popup_f164f9728d744ee1aafd4171effc6b31)
         ;
 
         
     
     
-            circle_06461b3104c8405396954d07ead1290d.bindTooltip(
+            circle_ed3421689abc4f1998bdbc4697320416.bindTooltip(
                 `<div>
                      
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45122192</b></p>
+        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>44618600</b></p>
         Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
         
         Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
@@ -2064,29 +2952,29 @@
             );
         
     
-            var circle_c48322f32fe7472ab795d23429e4e36f = L.circle(
-                [42.28345, -71.03635],
+            var circle_7db9b22e948741378ce83e613a736263 = L.circle(
+                [42.32935, -71.11149],
                 {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
+            ).addTo(feature_group_4c752c3fd0374d5eba56bad350435a1e);
         
     
-        var popup_8a85e2ec70a246fbbc96a505f61dc8df = L.popup({"maxWidth": "100%"});
+        var popup_458d2fe01d7f4e7cb155a81c9fccbcfd = L.popup({"maxWidth": "100%"});
 
         
-            var html_1f9b0b1b9c9d4794a51e02abe0e41c68 = $(`<div id="html_1f9b0b1b9c9d4794a51e02abe0e41c68" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_8a85e2ec70a246fbbc96a505f61dc8df.setContent(html_1f9b0b1b9c9d4794a51e02abe0e41c68);
+            var html_d549664abd3b48b0a874286a7c85dff6 = $(`<div id="html_d549664abd3b48b0a874286a7c85dff6" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
+            popup_458d2fe01d7f4e7cb155a81c9fccbcfd.setContent(html_d549664abd3b48b0a874286a7c85dff6);
         
 
-        circle_c48322f32fe7472ab795d23429e4e36f.bindPopup(popup_8a85e2ec70a246fbbc96a505f61dc8df)
+        circle_7db9b22e948741378ce83e613a736263.bindPopup(popup_458d2fe01d7f4e7cb155a81c9fccbcfd)
         ;
 
         
     
     
-            circle_c48322f32fe7472ab795d23429e4e36f.bindTooltip(
+            circle_7db9b22e948741378ce83e613a736263.bindTooltip(
                 `<div>
                      
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45122193</b></p>
+        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>44618601</b></p>
         Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
         
         Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
@@ -2103,29 +2991,29 @@
             );
         
     
-            var circle_56621667691c4412aebafb4c597dd767 = L.circle(
-                [42.28345, -71.03635],
+            var circle_2fbab1cdc1c8434ba5260f1422b1f387 = L.circle(
+                [42.32935, -71.11149],
                 {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
+            ).addTo(feature_group_4c752c3fd0374d5eba56bad350435a1e);
         
     
-        var popup_4a1fe312615c492a9a894fea1ed75b6d = L.popup({"maxWidth": "100%"});
+        var popup_da81a6c2312d47db9f180b76c5cec784 = L.popup({"maxWidth": "100%"});
 
         
-            var html_0586f4d3c8f34a629bd8e5eca19d21b8 = $(`<div id="html_0586f4d3c8f34a629bd8e5eca19d21b8" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_4a1fe312615c492a9a894fea1ed75b6d.setContent(html_0586f4d3c8f34a629bd8e5eca19d21b8);
+            var html_1f72b55f70f14fdf835c75c0acee5835 = $(`<div id="html_1f72b55f70f14fdf835c75c0acee5835" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
+            popup_da81a6c2312d47db9f180b76c5cec784.setContent(html_1f72b55f70f14fdf835c75c0acee5835);
         
 
-        circle_56621667691c4412aebafb4c597dd767.bindPopup(popup_4a1fe312615c492a9a894fea1ed75b6d)
+        circle_2fbab1cdc1c8434ba5260f1422b1f387.bindPopup(popup_da81a6c2312d47db9f180b76c5cec784)
         ;
 
         
     
     
-            circle_56621667691c4412aebafb4c597dd767.bindTooltip(
+            circle_2fbab1cdc1c8434ba5260f1422b1f387.bindTooltip(
                 `<div>
                      
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45122194</b></p>
+        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45122667</b></p>
         Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
         
         Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
@@ -2142,29 +3030,29 @@
             );
         
     
-            var circle_7443cb523d6d4588bb6db6822af88d1b = L.circle(
-                [42.28345, -71.03635],
+            var circle_fa536c05499041bba51831f36e87a986 = L.circle(
+                [42.32935, -71.11149],
                 {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
+            ).addTo(feature_group_4c752c3fd0374d5eba56bad350435a1e);
         
     
-        var popup_e7f72aef8c8a40f4b8f52c5bf845f32c = L.popup({"maxWidth": "100%"});
+        var popup_e78f22fb9e4e42bc9250183a77a002e9 = L.popup({"maxWidth": "100%"});
 
         
-            var html_41f9cb8f0d2b4f829bfc550843278a08 = $(`<div id="html_41f9cb8f0d2b4f829bfc550843278a08" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_e7f72aef8c8a40f4b8f52c5bf845f32c.setContent(html_41f9cb8f0d2b4f829bfc550843278a08);
+            var html_cf9a63d2fecd4050881a87641912862f = $(`<div id="html_cf9a63d2fecd4050881a87641912862f" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
+            popup_e78f22fb9e4e42bc9250183a77a002e9.setContent(html_cf9a63d2fecd4050881a87641912862f);
         
 
-        circle_7443cb523d6d4588bb6db6822af88d1b.bindPopup(popup_e7f72aef8c8a40f4b8f52c5bf845f32c)
+        circle_fa536c05499041bba51831f36e87a986.bindPopup(popup_e78f22fb9e4e42bc9250183a77a002e9)
         ;
 
         
     
     
-            circle_7443cb523d6d4588bb6db6822af88d1b.bindTooltip(
+            circle_fa536c05499041bba51831f36e87a986.bindTooltip(
                 `<div>
                      
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45122195</b></p>
+        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45122669</b></p>
         Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
         
         Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
@@ -2181,29 +3069,29 @@
             );
         
     
-            var circle_1f3b1b01a1fa46ff90847443532004cf = L.circle(
-                [42.28345, -71.03635],
+            var circle_6934660e702d46d28dd12758aa3be8c0 = L.circle(
+                [42.32935, -71.11149],
                 {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
+            ).addTo(feature_group_4c752c3fd0374d5eba56bad350435a1e);
         
     
-        var popup_e5002e24c359434389ce8728386fe436 = L.popup({"maxWidth": "100%"});
+        var popup_3308f2a24a964424981d71ac0d5d126d = L.popup({"maxWidth": "100%"});
 
         
-            var html_94e06ea5ca394453ac981ea1e051adb2 = $(`<div id="html_94e06ea5ca394453ac981ea1e051adb2" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_e5002e24c359434389ce8728386fe436.setContent(html_94e06ea5ca394453ac981ea1e051adb2);
+            var html_39986b2c3ee54f9c854e5bfd406ecc35 = $(`<div id="html_39986b2c3ee54f9c854e5bfd406ecc35" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
+            popup_3308f2a24a964424981d71ac0d5d126d.setContent(html_39986b2c3ee54f9c854e5bfd406ecc35);
         
 
-        circle_1f3b1b01a1fa46ff90847443532004cf.bindPopup(popup_e5002e24c359434389ce8728386fe436)
+        circle_6934660e702d46d28dd12758aa3be8c0.bindPopup(popup_3308f2a24a964424981d71ac0d5d126d)
         ;
 
         
     
     
-            circle_1f3b1b01a1fa46ff90847443532004cf.bindTooltip(
+            circle_6934660e702d46d28dd12758aa3be8c0.bindTooltip(
                 `<div>
                      
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45122199</b></p>
+        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45122684</b></p>
         Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
         
         Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
@@ -2220,29 +3108,29 @@
             );
         
     
-            var circle_ee49a6f48e7d492a8c89f6385f7f6b5b = L.circle(
-                [42.28345, -71.03635],
+            var circle_18423f02f517460f9226366acb7f896c = L.circle(
+                [42.32935, -71.11149],
                 {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
+            ).addTo(feature_group_4c752c3fd0374d5eba56bad350435a1e);
         
     
-        var popup_9c3c26fa5613476fb024003ad9c996a9 = L.popup({"maxWidth": "100%"});
+        var popup_e903bf96c02c4ab9998a89a8f7c79915 = L.popup({"maxWidth": "100%"});
 
         
-            var html_84d7fedc678d4b308deade159c40771b = $(`<div id="html_84d7fedc678d4b308deade159c40771b" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_9c3c26fa5613476fb024003ad9c996a9.setContent(html_84d7fedc678d4b308deade159c40771b);
+            var html_6c36d0ce235243caaa2bcf0bde45a73f = $(`<div id="html_6c36d0ce235243caaa2bcf0bde45a73f" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
+            popup_e903bf96c02c4ab9998a89a8f7c79915.setContent(html_6c36d0ce235243caaa2bcf0bde45a73f);
         
 
-        circle_ee49a6f48e7d492a8c89f6385f7f6b5b.bindPopup(popup_9c3c26fa5613476fb024003ad9c996a9)
+        circle_18423f02f517460f9226366acb7f896c.bindPopup(popup_e903bf96c02c4ab9998a89a8f7c79915)
         ;
 
         
     
     
-            circle_ee49a6f48e7d492a8c89f6385f7f6b5b.bindTooltip(
+            circle_18423f02f517460f9226366acb7f896c.bindTooltip(
                 `<div>
                      
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45122200</b></p>
+        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45122688</b></p>
         Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
         
         Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
@@ -2259,29 +3147,29 @@
             );
         
     
-            var circle_d13edcf05fb54222acc0aa00544d2f0e = L.circle(
-                [42.28345, -71.03635],
+            var circle_dd8163077f3e459fa0c1e4e6759c9f95 = L.circle(
+                [42.32935, -71.11149],
                 {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
+            ).addTo(feature_group_4c752c3fd0374d5eba56bad350435a1e);
         
     
-        var popup_15ebb452825f446586b8406203aab48e = L.popup({"maxWidth": "100%"});
+        var popup_75fb3828423b4cbf9561dc03ec3e2c26 = L.popup({"maxWidth": "100%"});
 
         
-            var html_e7278e53257445ec86f0f9463c442fdc = $(`<div id="html_e7278e53257445ec86f0f9463c442fdc" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_15ebb452825f446586b8406203aab48e.setContent(html_e7278e53257445ec86f0f9463c442fdc);
+            var html_5bc537b734b5427785f6f615ae31f9af = $(`<div id="html_5bc537b734b5427785f6f615ae31f9af" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
+            popup_75fb3828423b4cbf9561dc03ec3e2c26.setContent(html_5bc537b734b5427785f6f615ae31f9af);
         
 
-        circle_d13edcf05fb54222acc0aa00544d2f0e.bindPopup(popup_15ebb452825f446586b8406203aab48e)
+        circle_dd8163077f3e459fa0c1e4e6759c9f95.bindPopup(popup_75fb3828423b4cbf9561dc03ec3e2c26)
         ;
 
         
     
     
-            circle_d13edcf05fb54222acc0aa00544d2f0e.bindTooltip(
+            circle_dd8163077f3e459fa0c1e4e6759c9f95.bindTooltip(
                 `<div>
                      
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45122201</b></p>
+        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45122694</b></p>
         Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
         
         Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
@@ -2298,29 +3186,29 @@
             );
         
     
-            var circle_7aff91f0e8ad475abb4eeef9db8d26cd = L.circle(
-                [42.28345, -71.03635],
+            var circle_a8af0f39199a48fc8adb6381df7a687f = L.circle(
+                [42.32935, -71.11149],
                 {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
+            ).addTo(feature_group_4c752c3fd0374d5eba56bad350435a1e);
         
     
-        var popup_b34e30687f2e48c98fcf8ed23612b377 = L.popup({"maxWidth": "100%"});
+        var popup_b6a4a86646764085939684dc8ac7cdd3 = L.popup({"maxWidth": "100%"});
 
         
-            var html_703c1b7214f84cb1817fcaba874d99d9 = $(`<div id="html_703c1b7214f84cb1817fcaba874d99d9" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_b34e30687f2e48c98fcf8ed23612b377.setContent(html_703c1b7214f84cb1817fcaba874d99d9);
+            var html_15767f8f45034a37b76c3db75f806561 = $(`<div id="html_15767f8f45034a37b76c3db75f806561" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
+            popup_b6a4a86646764085939684dc8ac7cdd3.setContent(html_15767f8f45034a37b76c3db75f806561);
         
 
-        circle_7aff91f0e8ad475abb4eeef9db8d26cd.bindPopup(popup_b34e30687f2e48c98fcf8ed23612b377)
+        circle_a8af0f39199a48fc8adb6381df7a687f.bindPopup(popup_b6a4a86646764085939684dc8ac7cdd3)
         ;
 
         
     
     
-            circle_7aff91f0e8ad475abb4eeef9db8d26cd.bindTooltip(
+            circle_a8af0f39199a48fc8adb6381df7a687f.bindTooltip(
                 `<div>
                      
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45122202</b></p>
+        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45122709</b></p>
         Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
         
         Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
@@ -2337,29 +3225,29 @@
             );
         
     
-            var circle_b726d503e35f454c83e0ea1753b26211 = L.circle(
-                [42.28345, -71.03635],
+            var circle_87c9a9ecb3df4ecc979cb2005d4ff693 = L.circle(
+                [42.32935, -71.11149],
                 {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
+            ).addTo(feature_group_4c752c3fd0374d5eba56bad350435a1e);
         
     
-        var popup_dd5a7d06d78d4c6984920a51ff1053f5 = L.popup({"maxWidth": "100%"});
+        var popup_92f997c0da354665bedd7ac2106ea0dd = L.popup({"maxWidth": "100%"});
 
         
-            var html_acb3a744620647fc9665e8c14e3aacd6 = $(`<div id="html_acb3a744620647fc9665e8c14e3aacd6" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_dd5a7d06d78d4c6984920a51ff1053f5.setContent(html_acb3a744620647fc9665e8c14e3aacd6);
+            var html_2b57beb3cac14d4eafebadb4be1b19e7 = $(`<div id="html_2b57beb3cac14d4eafebadb4be1b19e7" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
+            popup_92f997c0da354665bedd7ac2106ea0dd.setContent(html_2b57beb3cac14d4eafebadb4be1b19e7);
         
 
-        circle_b726d503e35f454c83e0ea1753b26211.bindPopup(popup_dd5a7d06d78d4c6984920a51ff1053f5)
+        circle_87c9a9ecb3df4ecc979cb2005d4ff693.bindPopup(popup_92f997c0da354665bedd7ac2106ea0dd)
         ;
 
         
     
     
-            circle_b726d503e35f454c83e0ea1753b26211.bindTooltip(
+            circle_87c9a9ecb3df4ecc979cb2005d4ff693.bindTooltip(
                 `<div>
                      
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45122204</b></p>
+        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45122710</b></p>
         Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
         
         Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
@@ -2376,29 +3264,29 @@
             );
         
     
-            var circle_cc75691658ac4bce9ad5f01916efa1e6 = L.circle(
-                [42.28345, -71.03635],
+            var circle_a606d236a8f94bc78d7274d8733e7ab6 = L.circle(
+                [42.32935, -71.11149],
                 {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
+            ).addTo(feature_group_4c752c3fd0374d5eba56bad350435a1e);
         
     
-        var popup_34cdda3e4c064f8d89d218b17298915a = L.popup({"maxWidth": "100%"});
+        var popup_7e395ba99b9545f181c06fb827b14435 = L.popup({"maxWidth": "100%"});
 
         
-            var html_3e78a377c9c64edf8aadb74f84743e3c = $(`<div id="html_3e78a377c9c64edf8aadb74f84743e3c" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_34cdda3e4c064f8d89d218b17298915a.setContent(html_3e78a377c9c64edf8aadb74f84743e3c);
+            var html_10f7053902524d85827f799577dc1ee4 = $(`<div id="html_10f7053902524d85827f799577dc1ee4" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
+            popup_7e395ba99b9545f181c06fb827b14435.setContent(html_10f7053902524d85827f799577dc1ee4);
         
 
-        circle_cc75691658ac4bce9ad5f01916efa1e6.bindPopup(popup_34cdda3e4c064f8d89d218b17298915a)
+        circle_a606d236a8f94bc78d7274d8733e7ab6.bindPopup(popup_7e395ba99b9545f181c06fb827b14435)
         ;
 
         
     
     
-            circle_cc75691658ac4bce9ad5f01916efa1e6.bindTooltip(
+            circle_a606d236a8f94bc78d7274d8733e7ab6.bindTooltip(
                 `<div>
                      
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45122205</b></p>
+        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45122742</b></p>
         Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
         
         Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
@@ -2415,487 +3303,19 @@
             );
         
     
-            var circle_812135e298a54ec48ede3534c2764101 = L.circle(
-                [42.28345, -71.03635],
-                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
-        
-    
-        var popup_6565c0faf8ec4194aa395d47d59a386d = L.popup({"maxWidth": "100%"});
-
-        
-            var html_118182630bbd47509f838cf522ff204b = $(`<div id="html_118182630bbd47509f838cf522ff204b" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_6565c0faf8ec4194aa395d47d59a386d.setContent(html_118182630bbd47509f838cf522ff204b);
-        
-
-        circle_812135e298a54ec48ede3534c2764101.bindPopup(popup_6565c0faf8ec4194aa395d47d59a386d)
-        ;
-
-        
-    
-    
-            circle_812135e298a54ec48ede3534c2764101.bindTooltip(
-                `<div>
-                     
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45122206</b></p>
-        Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
-        
-        Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
-        
-        <br>License:
-                 <i style='font-size:.9em; color:#FF9800';
-                       class='fa fa-file-text'></i>
-                <b> Missing</b>
-        <br>License: <span style='color:#FF9800'> <b>No license claimed</b> </span>
-        
-                    <br><b style='color:#448AFF'>Click or see cluster for more details</b></span>
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var circle_908c8a95c1fe4d81ae866d90ef6aa265 = L.circle(
-                [42.28345, -71.03635],
-                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
-        
-    
-        var popup_20ee50865f954cef8463c1d3a0935d12 = L.popup({"maxWidth": "100%"});
-
-        
-            var html_098a46590c9b4472baa96b78f672ffd5 = $(`<div id="html_098a46590c9b4472baa96b78f672ffd5" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_20ee50865f954cef8463c1d3a0935d12.setContent(html_098a46590c9b4472baa96b78f672ffd5);
-        
-
-        circle_908c8a95c1fe4d81ae866d90ef6aa265.bindPopup(popup_20ee50865f954cef8463c1d3a0935d12)
-        ;
-
-        
-    
-    
-            circle_908c8a95c1fe4d81ae866d90ef6aa265.bindTooltip(
-                `<div>
-                     
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45122207</b></p>
-        Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
-        
-        Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
-        
-        <br>License:
-                 <i style='font-size:.9em; color:#FF9800';
-                       class='fa fa-file-text'></i>
-                <b> Missing</b>
-        <br>License: <span style='color:#FF9800'> <b>No license claimed</b> </span>
-        
-                    <br><b style='color:#448AFF'>Click or see cluster for more details</b></span>
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var circle_f7d4830d617d41faa7a4d58e92a15835 = L.circle(
-                [42.28345, -71.03635],
-                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
-        
-    
-        var popup_8fa267d87d3a4bdbb7796937ec35b2bb = L.popup({"maxWidth": "100%"});
-
-        
-            var html_8773153c13c240d38df5a9ef34daf95e = $(`<div id="html_8773153c13c240d38df5a9ef34daf95e" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_8fa267d87d3a4bdbb7796937ec35b2bb.setContent(html_8773153c13c240d38df5a9ef34daf95e);
-        
-
-        circle_f7d4830d617d41faa7a4d58e92a15835.bindPopup(popup_8fa267d87d3a4bdbb7796937ec35b2bb)
-        ;
-
-        
-    
-    
-            circle_f7d4830d617d41faa7a4d58e92a15835.bindTooltip(
-                `<div>
-                     
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45122208</b></p>
-        Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
-        
-        Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
-        
-        <br>License:
-                 <i style='font-size:.9em; color:#FF9800';
-                       class='fa fa-file-text'></i>
-                <b> Missing</b>
-        <br>License: <span style='color:#FF9800'> <b>No license claimed</b> </span>
-        
-                    <br><b style='color:#448AFF'>Click or see cluster for more details</b></span>
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var circle_2d99f0469fb84bd4a87846ee94fde5c4 = L.circle(
-                [42.28345, -71.03635],
-                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
-        
-    
-        var popup_34a73ba9eb6245cab09a2104eded23a9 = L.popup({"maxWidth": "100%"});
-
-        
-            var html_c4fc0b67e0054eb0b40bc5e41a0db150 = $(`<div id="html_c4fc0b67e0054eb0b40bc5e41a0db150" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_34a73ba9eb6245cab09a2104eded23a9.setContent(html_c4fc0b67e0054eb0b40bc5e41a0db150);
-        
-
-        circle_2d99f0469fb84bd4a87846ee94fde5c4.bindPopup(popup_34a73ba9eb6245cab09a2104eded23a9)
-        ;
-
-        
-    
-    
-            circle_2d99f0469fb84bd4a87846ee94fde5c4.bindTooltip(
-                `<div>
-                     
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45122209</b></p>
-        Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
-        
-        Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
-        
-        <br>License:
-                 <i style='font-size:.9em; color:#FF9800';
-                       class='fa fa-file-text'></i>
-                <b> Missing</b>
-        <br>License: <span style='color:#FF9800'> <b>No license claimed</b> </span>
-        
-                    <br><b style='color:#448AFF'>Click or see cluster for more details</b></span>
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var circle_576e6c6e184a47be9647d285d58fbed1 = L.circle(
-                [42.28345, -71.03635],
-                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
-        
-    
-        var popup_827a59d5f0534ebba6ffa70d28890253 = L.popup({"maxWidth": "100%"});
-
-        
-            var html_bed824df2bd84ded923a707df5163533 = $(`<div id="html_bed824df2bd84ded923a707df5163533" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_827a59d5f0534ebba6ffa70d28890253.setContent(html_bed824df2bd84ded923a707df5163533);
-        
-
-        circle_576e6c6e184a47be9647d285d58fbed1.bindPopup(popup_827a59d5f0534ebba6ffa70d28890253)
-        ;
-
-        
-    
-    
-            circle_576e6c6e184a47be9647d285d58fbed1.bindTooltip(
-                `<div>
-                     
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45122210</b></p>
-        Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
-        
-        Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
-        
-        <br>License:
-                 <i style='font-size:.9em; color:#FF9800';
-                       class='fa fa-file-text'></i>
-                <b> Missing</b>
-        <br>License: <span style='color:#FF9800'> <b>No license claimed</b> </span>
-        
-                    <br><b style='color:#448AFF'>Click or see cluster for more details</b></span>
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var circle_839d9c355e3d41b985b02ba6eadde236 = L.circle(
-                [42.28345, -71.03635],
-                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
-        
-    
-        var popup_bb7bebe99c014229aa0a7b4fec2bc140 = L.popup({"maxWidth": "100%"});
-
-        
-            var html_b38939d8a58048bd9c919cd24fb6a620 = $(`<div id="html_b38939d8a58048bd9c919cd24fb6a620" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_bb7bebe99c014229aa0a7b4fec2bc140.setContent(html_b38939d8a58048bd9c919cd24fb6a620);
-        
-
-        circle_839d9c355e3d41b985b02ba6eadde236.bindPopup(popup_bb7bebe99c014229aa0a7b4fec2bc140)
-        ;
-
-        
-    
-    
-            circle_839d9c355e3d41b985b02ba6eadde236.bindTooltip(
-                `<div>
-                     
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45122212</b></p>
-        Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
-        
-        Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
-        
-        <br>License:
-                 <i style='font-size:.9em; color:#FF9800';
-                       class='fa fa-file-text'></i>
-                <b> Missing</b>
-        <br>License: <span style='color:#FF9800'> <b>No license claimed</b> </span>
-        
-                    <br><b style='color:#448AFF'>Click or see cluster for more details</b></span>
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var circle_ca68168ee8c8472ebc294aaa7ef521ca = L.circle(
-                [42.28345, -71.03635],
-                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
-        
-    
-        var popup_f359d074555044729f952dadd17f8e6f = L.popup({"maxWidth": "100%"});
-
-        
-            var html_c391a2b35e644fa49853c75d4e0720f6 = $(`<div id="html_c391a2b35e644fa49853c75d4e0720f6" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_f359d074555044729f952dadd17f8e6f.setContent(html_c391a2b35e644fa49853c75d4e0720f6);
-        
-
-        circle_ca68168ee8c8472ebc294aaa7ef521ca.bindPopup(popup_f359d074555044729f952dadd17f8e6f)
-        ;
-
-        
-    
-    
-            circle_ca68168ee8c8472ebc294aaa7ef521ca.bindTooltip(
-                `<div>
-                     
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45122213</b></p>
-        Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
-        
-        Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
-        
-        <br>License:
-                 <i style='font-size:.9em; color:#FF9800';
-                       class='fa fa-file-text'></i>
-                <b> Missing</b>
-        <br>License: <span style='color:#FF9800'> <b>No license claimed</b> </span>
-        
-                    <br><b style='color:#448AFF'>Click or see cluster for more details</b></span>
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var circle_3eeaded8bef0465c9dd7b395eb15bdba = L.circle(
-                [42.28345, -71.03635],
-                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
-        
-    
-        var popup_28e311833291425ab537da891dfeb1f6 = L.popup({"maxWidth": "100%"});
-
-        
-            var html_b5e79aff986e44c9af3897a22d9043d3 = $(`<div id="html_b5e79aff986e44c9af3897a22d9043d3" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_28e311833291425ab537da891dfeb1f6.setContent(html_b5e79aff986e44c9af3897a22d9043d3);
-        
-
-        circle_3eeaded8bef0465c9dd7b395eb15bdba.bindPopup(popup_28e311833291425ab537da891dfeb1f6)
-        ;
-
-        
-    
-    
-            circle_3eeaded8bef0465c9dd7b395eb15bdba.bindTooltip(
-                `<div>
-                     
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45122214</b></p>
-        Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
-        
-        Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
-        
-        <br>License:
-                 <i style='font-size:.9em; color:#FF9800';
-                       class='fa fa-file-text'></i>
-                <b> Missing</b>
-        <br>License: <span style='color:#FF9800'> <b>No license claimed</b> </span>
-        
-                    <br><b style='color:#448AFF'>Click or see cluster for more details</b></span>
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var circle_e46dad554b8b443ba97d9504d1396f1e = L.circle(
-                [42.28345, -71.03635],
-                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
-        
-    
-        var popup_bad2c51bcc5e43d98b5ec0a889e2c0e2 = L.popup({"maxWidth": "100%"});
-
-        
-            var html_9ec7e2537cbe4cd09ee71805736aa92b = $(`<div id="html_9ec7e2537cbe4cd09ee71805736aa92b" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_bad2c51bcc5e43d98b5ec0a889e2c0e2.setContent(html_9ec7e2537cbe4cd09ee71805736aa92b);
-        
-
-        circle_e46dad554b8b443ba97d9504d1396f1e.bindPopup(popup_bad2c51bcc5e43d98b5ec0a889e2c0e2)
-        ;
-
-        
-    
-    
-            circle_e46dad554b8b443ba97d9504d1396f1e.bindTooltip(
-                `<div>
-                     
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45122215</b></p>
-        Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
-        
-        Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
-        
-        <br>License:
-                 <i style='font-size:.9em; color:#FF9800';
-                       class='fa fa-file-text'></i>
-                <b> Missing</b>
-        <br>License: <span style='color:#FF9800'> <b>No license claimed</b> </span>
-        
-                    <br><b style='color:#448AFF'>Click or see cluster for more details</b></span>
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var circle_c26d2dda65b4477195aadb900b1f2f6b = L.circle(
-                [42.28345, -71.03635],
-                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
-        
-    
-        var popup_13491f21a80042e9aa34c56144a0b250 = L.popup({"maxWidth": "100%"});
-
-        
-            var html_09383e2aa0fc4f9ea8fe230604662e1c = $(`<div id="html_09383e2aa0fc4f9ea8fe230604662e1c" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_13491f21a80042e9aa34c56144a0b250.setContent(html_09383e2aa0fc4f9ea8fe230604662e1c);
-        
-
-        circle_c26d2dda65b4477195aadb900b1f2f6b.bindPopup(popup_13491f21a80042e9aa34c56144a0b250)
-        ;
-
-        
-    
-    
-            circle_c26d2dda65b4477195aadb900b1f2f6b.bindTooltip(
-                `<div>
-                     
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45122216</b></p>
-        Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
-        
-        Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
-        
-        <br>License:
-                 <i style='font-size:.9em; color:#FF9800';
-                       class='fa fa-file-text'></i>
-                <b> Missing</b>
-        <br>License: <span style='color:#FF9800'> <b>No license claimed</b> </span>
-        
-                    <br><b style='color:#448AFF'>Click or see cluster for more details</b></span>
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var circle_e40accfc35604610a83823498357d08f = L.circle(
-                [42.28345, -71.03635],
-                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
-        
-    
-        var popup_7d881c7814a8480ca2ec6be13d7661fc = L.popup({"maxWidth": "100%"});
-
-        
-            var html_3b8d88f7556f4a34a02f46a11706073d = $(`<div id="html_3b8d88f7556f4a34a02f46a11706073d" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_7d881c7814a8480ca2ec6be13d7661fc.setContent(html_3b8d88f7556f4a34a02f46a11706073d);
-        
-
-        circle_e40accfc35604610a83823498357d08f.bindPopup(popup_7d881c7814a8480ca2ec6be13d7661fc)
-        ;
-
-        
-    
-    
-            circle_e40accfc35604610a83823498357d08f.bindTooltip(
-                `<div>
-                     
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45163780</b></p>
-        Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
-        
-        Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
-        
-        <br>License:
-                 <i style='font-size:.9em; color:#FF9800';
-                       class='fa fa-file-text'></i>
-                <b> Missing</b>
-        <br>License: <span style='color:#FF9800'> <b>No license claimed</b> </span>
-        
-                    <br><b style='color:#448AFF'>Click or see cluster for more details</b></span>
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var circle_605712d3a6f044cd8746573da2b3be88 = L.circle(
-                [42.28345, -71.03635],
-                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF9800", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 10, "stroke": true, "weight": 2.5}
-            ).addTo(feature_group_70f22d8cda2147cb9931db2db35643c1);
-        
-    
-        var popup_c59063b8ff204ed5a70f717c08025a8f = L.popup({"maxWidth": "100%"});
-
-        
-            var html_0a60675064c143c3a601da827023277f = $(`<div id="html_0a60675064c143c3a601da827023277f" style="width: 100.0%; height: 100.0%;"><div style="white-space: nowrap; text-align:center">                             <a class='centroid-link-btn'                                href='/cluster/1-4.html'>                                 <b>Cluster 1-4</b> |                                 Details <i class="fa fa-arrow-right" aria-hidden="true"></i>                                                      </div>                         </div>`)[0];
-            popup_c59063b8ff204ed5a70f717c08025a8f.setContent(html_0a60675064c143c3a601da827023277f);
-        
-
-        circle_605712d3a6f044cd8746573da2b3be88.bindPopup(popup_c59063b8ff204ed5a70f717c08025a8f)
-        ;
-
-        
-    
-    
-            circle_605712d3a6f044cd8746573da2b3be88.bindTooltip(
-                `<div>
-                     
-        <p style='font-size:1.25em; margin:0; color:#BF0000'>Listing <b>45177448</b></p>
-        Cluster: <span style='color:#448AFF'><b>1-4</b></span> | 
-        
-        Host: <span style='color:#665c2c'><b>PCHNortheast </b></span>
-        
-        <br>License:
-                 <i style='font-size:.9em; color:#FF9800';
-                       class='fa fa-file-text'></i>
-                <b> Missing</b>
-        <br>License: <span style='color:#FF9800'> <b>No license claimed</b> </span>
-        
-                    <br><b style='color:#448AFF'>Click or see cluster for more details</b></span>
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var layer_control_57f54e67bb8f4a2cbd5b79b6d8fb84c3 = {
+            var layer_control_0d7e304f911b4da5ab555c15411e7a89 = {
                 base_layers : {
                 },
                 overlays :  {
-                    "\u003cspan style=\u0027font-size:15px\u0027\u003e\n                        Known STR buildings near large clusters\n                        \u003ci class=\u0027fa fa-building\u0027\n                           style=\u0027color:#5E35B1; margin: 0 3px;\u0027\u003e\u003c/i\u003e\n                        \u003c/span\u003e" : feature_group_6f73591f4e8e47e48402602fb0e472f2,
-                    "\u003cspan style=\u0027font-size:15px\u0027\u003e\n                        Include individual listings on map\n                        \u003ci class=\u0027fa fa-dot-circle-o\u0027\n                           style=\u0027color:red; margin: 0 3px;\u0027\u003e\u003c/i\u003e\n                    \u003c/span\u003e" : feature_group_70f22d8cda2147cb9931db2db35643c1,
+                    "\u003cspan style=\u0027font-size:15px\u0027\u003e\n                        Known STR buildings near large clusters\n                        \u003ci class=\u0027fa fa-building\u0027\n                           style=\u0027color:#5E35B1; margin: 0 3px;\u0027\u003e\u003c/i\u003e\n                        \u003c/span\u003e" : feature_group_922c2bfe71c04f1c996f66d2a062f854,
+                    "\u003cspan style=\u0027font-size:15px\u0027\u003e\n                        Include individual listings on map\n                        \u003ci class=\u0027fa fa-dot-circle-o\u0027\n                           style=\u0027color:red; margin: 0 3px;\u0027\u003e\u003c/i\u003e\n                    \u003c/span\u003e" : feature_group_4c752c3fd0374d5eba56bad350435a1e,
                 },
             };
             L.control.layers(
-                layer_control_57f54e67bb8f4a2cbd5b79b6d8fb84c3.base_layers,
-                layer_control_57f54e67bb8f4a2cbd5b79b6d8fb84c3.overlays,
+                layer_control_0d7e304f911b4da5ab555c15411e7a89.base_layers,
+                layer_control_0d7e304f911b4da5ab555c15411e7a89.overlays,
                 {"autoZIndex": true, "collapsed": false, "position": "topright"}
-            ).addTo(map_9bcee8f3717f42609d309530e7661182);
+            ).addTo(map_973120fe2c8242a5ac4f3acc98a93a53);
         
 </script>
             </div>
@@ -2915,6 +3335,93 @@
               this.innerHTML = "[ &ndash; ] Learn less... ";
             } 
         });
+    </script>
+    <script>
+    
+        var modal = document.getElementById("myModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on the button, open the modal
+        btn.onclick = function() {
+          modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+          modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        }
+
+    </script>
+    <script>
+    
+    
+        document.getElementById("mobile-switcher"
+            ).addEventListener("click", switch_mobile_menu);
+        document.getElementById("mobile-switch-link"
+            ).addEventListener("click", switch_mobile_menu);
+        document.getElementById("mobile-menu-circle"
+            ).addEventListener("click", switch_mobile_menu);
+            
+        var mapOpen = false
+        function switch_mobile_menu() {
+
+            var navbar = document.getElementById("nav-banner");
+            var sidebar = document.getElementById("sidebar-container");
+            var map = document.getElementById("map-container");
+            var slabel = document.getElementById("mobile-switch-label");
+            var openico = document.getElementById("open-menu-icon");
+            var slink = document.getElementById("mobile-switch-link");
+            var menucir = document.getElementById("mobile-menu-circle");
+
+
+            if ( mapOpen ){
+                  sidebar.setAttribute("style","left:0") ;
+
+                  map.setAttribute("style","left:calc(100vw - 100px)") ;
+                  map.setAttribute("style","width:800px") ;
+
+                  slabel.innerHTML = "<b>Map </b> <i class='fa fa-map' aria-hidden='true'></i>";
+                  
+                  openico.setAttribute("style","visibility:hidden") ;
+                  menucir.setAttribute("style","left:-100px") ;
+                  
+                  slink.setAttribute("style","right:0") ;
+                  slink.setAttribute("style","width:30px") ;
+                  
+
+                  mapOpen = false;
+            }
+            else {
+                  sidebar.setAttribute("style","left:calc(-100vw + 40px)") ; 
+
+                  map.setAttribute("style","left:10px !important") ;
+                  map.setAttribute("style","width:calc(100vw - 10px) !important") ;
+
+                  slabel.innerHTML = "<b>Details </b> <i class='fa fa-bars' aria-hidden='true'></i>";
+                  
+                  openico.setAttribute("style","visibility:visible") ;
+                  menucir.setAttribute("style","left:-30px") ;
+
+                  slink.setAttribute("style","width:20px") ;
+                  slink.setAttribute("style","left:0px") ;
+
+                  mapOpen = true;
+            } 
+        };
+
+    
     </script>
     <script>
     
